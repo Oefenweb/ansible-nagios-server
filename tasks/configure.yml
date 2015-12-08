@@ -1,0 +1,60 @@
+# tasks file for nagios-server
+---
+- name: apache htpasswd users
+  htpasswd:
+    path: /etc/nagios3/htpasswd.users
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+  with_items: nagios_server_htpasswd_users
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy commands configuration files
+  template:
+    src: etc/nagios3/commands.cfg.j2
+    dest: /etc/nagios3/commands.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy contacts configuration files
+  template:
+    src: etc/nagios3/conf.d/contacts_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/contacts_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy hostgroups configuration files
+  template:
+    src: etc/nagios3/conf.d/hostgroups_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/hostgroups_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy timeperiods configuration files
+  template:
+    src: etc/nagios3/conf.d/timeperiods_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/timeperiods_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy host configuration files
+  template:
+    src: etc/nagios3/conf.d/hostname_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/{{ item.host_name }}_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  with_items: nagios_server_hosts
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]

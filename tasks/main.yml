@@ -1,0 +1,4 @@
+# tasks file for nagios-server
+---
+- include: install.yml
+- include: configure.yml

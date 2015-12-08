@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+{% for hostgroup in nagios_server_hostgroups %}
+
+define hostgroup {
+	hostgroup_name  {{ hostgroup.name }}
+	alias           {{ hostgroup.alias }}
+	members         {{ hostgroup.members | join(', ') }}
+}
+
+{% endfor %}

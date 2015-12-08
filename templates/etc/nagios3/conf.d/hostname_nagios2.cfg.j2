@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+
+define host{
+	use                     generic-host            ; Name of host template to use
+	host_name               {{ item.host_name }}
+	alias                   {{ item.alias }}
+	address                 {{ item.address }}
+}
