@@ -19,13 +19,32 @@ nagios_server_contactgroups:
     members:
       - root
 
+nagios_server_hostextinfo_presets_debian_servers:
+  hostgroup: debian-servers
+  notes: Debian GNU/Linux servers
+  icon_image: base/debian.png
+  icon_image_alt: Debian GNU/Linux
+  vrml_image: debian.png
+  statusmap_image: base/debian.gd2
+
+nagios_server_hostextinfo_presets_ubuntu_servers:
+  hostgroup: ubuntu-servers
+  notes: Ubuntu GNU/Linux servers
+  icon_image: base/ubuntu.png
+  icon_image_alt: Ubuntu GNU/Linux
+  vrml_image: ubuntu.png
+  statusmap_image: base/ubuntu.gd2
+
+nagios_server_hostextinfo_presets_switches:
+  hostgroup: switches
+  notes: Switches
+  icon_image: base/ng-switch40.png
+  icon_image_alt: Switches
+  vrml_image: ng-switch40.png
+  statusmap_image: base/ng-switch40.gd2
+
 nagios_server_hostextinfo:
-  - hostgroup: debian-servers
-    notes: Debian GNU/Linux servers
-    icon_image: base/debian.png
-    icon_image_alt: Debian GNU/Linux
-    vrml_image: debian.png
-    statusmap_image: base/debian.gd2
+  - "{{ nagios_server_hostextinfo_presets_debian_servers }}"
 
 nagios_server_hostgroups:
   # A simple wildcard hostgroup
@@ -49,15 +68,21 @@ nagios_server_hostgroups:
     members:
       - localhost
 
-nagios_server_commands_notification:
+nagios_server_commands_notification_presets_notify_host_by_email:
   # 'notify-host-by-email' command definition
-  - name: notify-host-by-email
-    line: |
-      /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" $CONTACTEMAIL$
+  name: notify-host-by-email
+  line: |
+    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" $CONTACTEMAIL$
+
+nagios_server_commands_notification_presets_notify_service_by_email:
   # 'notify-service-by-email' command definition
-  - name: notify-service-by-email
-    line: |
-      /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
+  name: notify-service-by-email
+  line: |
+    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
+
+nagios_server_commands_notification:
+  - "{{ nagios_server_commands_notification_presets_notify_host_by_email }}"
+  - "{{ nagios_server_commands_notification_presets_notify_service_by_email }}"
 
 nagios_server_commands_performance_data:
   # 'process-host-perfdata' command definition
@@ -69,44 +94,62 @@ nagios_server_commands_performance_data:
     line: |
       /usr/bin/printf "%b" "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$\n" >> /var/lib/nagios3/service-perfdata.out
 
-nagios_server_services:
+nagios_server_services_presets_http:
   # check that web services are running
-  - hostgroup: http-servers
-    description: HTTP
-    check_command: check_http
+  hostgroup: http-servers
+  description: HTTP
+  check_command: check_http
+
+nagios_server_services_presets_ssh:
   # check that ssh services are running
-  - hostgroup: ssh-servers
-    description: SSH
-    check_command: check_ssh
+  hostgroup: ssh-servers
+  description: SSH
+  check_command: check_ssh
+
+nagios_server_services:
+  - "{{ nagios_server_services_presets_http }}"
+  - "{{ nagios_server_services_presets_ssh }}"
+
+nagios_server_timeperiods_presets_24x7:
+  name: 24x7
+  alias: 24 Hours A Day, 7 Days A Week
+  periods:
+    sunday: 00:00-24:00
+    monday: 00:00-24:00
+    tuesday: 00:00-24:00
+    wednesday: 00:00-24:00
+    thursday: 00:00-24:00
+    friday: 00:00-24:00
+    saturday: 00:00-24:00
+
+nagios_server_timeperiods_presets_workhours:
+  name: workhours
+  alias: Standard Work Hours
+  periods:
+    monday: 09:00-17:00
+    tuesday: 09:00-17:00
+    wednesday: 09:00-17:00
+    thursday: 09:00-17:00
+    friday: 09:00-17:00
+
+nagios_server_timeperiods_presets_nonworkhours:
+  name: nonworkhours
+  alias: Non-Work Hours
+  periods:
+    sunday: 00:00-24:00
+    monday: 00:00-09:00,17:00-24:00
+    tuesday: 00:00-09:00,17:00-24:00
+    wednesday: 00:00-09:00,17:00-24:00
+    thursday: 00:00-09:00,17:00-24:00
+    friday: 00:00-09:00,17:00-24:00
+    saturday: 00:00-24:00
+
+nagios_server_timeperiods_presets_never:
+  name: never
+  alias: Never
 
 nagios_server_timeperiods:
-  - name: 24x7
-    alias: 24 Hours A Day, 7 Days A Week
-    periods:
-      sunday: 00:00-24:00
-      monday: 00:00-24:00
-      tuesday: 00:00-24:00
-      wednesday: 00:00-24:00
-      thursday: 00:00-24:00
-      friday: 00:00-24:00
-      saturday: 00:00-24:00
-  - name: workhours
-    alias: Standard Work Hours
-    periods:
-      monday: 09:00-17:00
-      tuesday: 09:00-17:00
-      wednesday: 09:00-17:00
-      thursday: 09:00-17:00
-      friday: 09:00-17:00
-  - name: nonworkhours
-    alias: Non-Work Hours
-    periods:
-      sunday: 00:00-24:00
-      monday: 00:00-09:00,17:00-24:00
-      tuesday: 00:00-09:00,17:00-24:00
-      wednesday: 00:00-09:00,17:00-24:00
-      thursday: 00:00-09:00,17:00-24:00
-      friday: 00:00-09:00,17:00-24:00
-      saturday: 00:00-24:00
-  - name: never
-    alias: Never
+  - "{{ nagios_server_timeperiods_presets_24x7 }}"
+  - "{{ nagios_server_timeperiods_presets_workhours }}"
+  - "{{ nagios_server_timeperiods_presets_nonworkhours }}"
+  - "{{ nagios_server_timeperiods_presets_never }}"
