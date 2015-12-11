@@ -5,11 +5,11 @@
 ################################################################################
 
 
-{% for item in nagios_server_notification_commands %}
+{% for command in nagios_server_commands_notification %}
 define command{
-	command_name	{{ item.command_name }}
-	command_line	{{ item.command_line }}
-	}
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
 {% endfor %}
 
 
@@ -28,9 +28,20 @@ define command{
 ################################################################################
 
 
-{% for item in nagios_server_performance_data_commands %}
+{% for command in nagios_server_commands_performance_data %}
 define command{
-	command_name	{{ item.command_name }}
-	command_line	{{ item.command_line }}
-	}
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
+{% endfor %}
+
+#
+# Custom commands
+#
+
+{% for command in nagios_server_commands_custom %}
+define command{
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
 {% endfor %}

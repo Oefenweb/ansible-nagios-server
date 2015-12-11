@@ -28,10 +28,30 @@
   notify: reload nagios-server
   tags: [configuration, nagios-server, nagios-server-configuration]
 
+- name: copy hostextinfo configuration files
+  template:
+    src: etc/nagios3/conf.d/extinfo_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/extinfo_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
 - name: copy hostgroups configuration files
   template:
     src: etc/nagios3/conf.d/hostgroups_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/hostgroups_nagios2.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
+- name: copy services configuration files
+  template:
+    src: etc/nagios3/conf.d/services_nagios2.cfg.j2
+    dest: /etc/nagios3/conf.d/services_nagios2.cfg
     owner: root
     group: nagios
     mode: 0640

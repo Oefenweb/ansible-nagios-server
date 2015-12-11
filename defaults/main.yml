@@ -12,11 +12,21 @@ nagios_server_contacts:
     service_notification_commands: notify-service-by-email
     host_notification_commands: notify-host-by-email
     email: root@localhost
+
 nagios_server_contactgroups:
   - name: admins
     alias: Nagios Administrators
     members:
       - root
+
+nagios_server_hostextinfo:
+  - hostgroup: debian-servers
+    notes: Debian GNU/Linux servers
+    icon_image: base/debian.png
+    icon_image_alt: Debian GNU/Linux
+    vrml_image: debian.png
+    statusmap_image: base/debian.gd2
+
 nagios_server_hostgroups:
   # A simple wildcard hostgroup
   - name: all
@@ -39,25 +49,35 @@ nagios_server_hostgroups:
     members:
       - localhost
 
-nagios_server_notification_commands:
+nagios_server_commands_notification:
   # 'notify-host-by-email' command definition
-  - command_name: notify-host-by-email
-    command_line: |
+  - name: notify-host-by-email
+    line: |
       /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" $CONTACTEMAIL$
   # 'notify-service-by-email' command definition
-  - command_name: notify-service-by-email
-    command_line: |
+  - name: notify-service-by-email
+    line: |
       /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
 
-nagios_server_performance_data_commands:
+nagios_server_commands_performance_data:
   # 'process-host-perfdata' command definition
-  - command_name: process-host-perfdata
-    command_line: |
+  - name: process-host-perfdata
+    line: |
       /usr/bin/printf "%b" "$LASTHOSTCHECK$\t$HOSTNAME$\t$HOSTSTATE$\t$HOSTATTEMPT$\t$HOSTSTATETYPE$\t$HOSTEXECUTIONTIME$\t$HOSTOUTPUT$\t$HOSTPERFDATA$\n" >> /var/lib/nagios3/host-perfdata.out
   # 'process-service-perfdata' command definition
-  - command_name: process-service-perfdata
-    command_line: |
+  - name: process-service-perfdata
+    line: |
       /usr/bin/printf "%b" "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$\n" >> /var/lib/nagios3/service-perfdata.out
+
+nagios_server_services:
+  # check that web services are running
+  - hostgroup: http-servers
+    description: HTTP
+    check_command: check_http
+  # check that ssh services are running
+  - hostgroup: ssh-servers
+    description: SSH
+    check_command: check_ssh
 
 nagios_server_timeperiods:
   - name: 24x7
