@@ -18,8 +18,8 @@ define contact{
 	host_notification_period        {{ item.host_notification_period | default('24x7') }}
 	service_notification_options    {{ item.service_notification_options | default('w,u,c,r') }}
 	host_notification_options       {{ item.host_notification_options | default('d,r') }}
-	service_notification_commands   {{ item.service_notification_commands }}
-	host_notification_commands      {{ item.host_notification_commands }}
+	service_notification_commands   {{ item.service_notification_command }}
+	host_notification_commands      {{ item.host_notification_command }}
 {% if item.email | default(false) %}
 	email                           {{ item.email }}
 {% endif %}

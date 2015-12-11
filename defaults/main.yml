@@ -6,11 +6,15 @@ nagios_server_install:
   - nagios3
   - python-passlib  # Required for the htpasswd Ansible module
 
+nagios_server_user_macros:
+  # Sets $USER1$ to be the path to the plugins
+  1: /usr/lib/nagios/plugins
+
 nagios_server_contacts:
   - name: root
     alias: root
-    service_notification_commands: notify-service-by-email
-    host_notification_commands: notify-host-by-email
+    service_notification_command: notify-service-by-email
+    host_notification_command: notify-host-by-email
     email: root@localhost
 
 nagios_server_contactgroups:
