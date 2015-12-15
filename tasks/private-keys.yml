@@ -1,5 +1,16 @@
 # tasks file for nagios-server
 ---
+- name: create ssh directory
+  file:
+    path: "~{{ item.owner | default('nagios') }}/.ssh"
+    state: directory
+    owner: "{{ item.owner | default('nagios') }}"
+    group: "{{ item.group | default(item.owner) | default('nagios') }}"
+    mode: 0700
+  with_items: nagios_server_private_keys
+  when: item.state is undefined or item.state == 'present'
+  tags: [configuration, nagios-server, nagios-server-private-keys]
+
 - name: add private keys
   copy:
     src: "{{ item.src }}"
