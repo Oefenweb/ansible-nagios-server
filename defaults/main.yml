@@ -2,6 +2,8 @@
 ---
 nagios_server_htpasswd_users: []
 
+nagios_server_private_keys: []
+
 nagios_server_install:
   - nagios3
   - python-passlib  # Required for the htpasswd Ansible module
