@@ -74,6 +74,8 @@ nagios_server_hostgroups:
     members:
       - localhost
 
+nagios_server_hosts: []
+
 nagios_server_commands_notification_presets_notify_host_by_email:
   # 'notify-host-by-email' command definition
   name: notify-host-by-email
