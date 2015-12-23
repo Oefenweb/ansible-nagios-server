@@ -100,6 +100,8 @@ nagios_server_commands_performance_data:
     line: |
       /usr/bin/printf "%b" "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$\n" >> /var/lib/nagios3/service-perfdata.out
 
+nagios_server_commands_custom: []
+
 nagios_server_services_presets_http:
   # check that web services are running
   hostgroup: http-servers
