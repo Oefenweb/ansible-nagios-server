@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+
+###############################################################################
+# timeperiods.cfg
+###############################################################################
+
+{% for timeperiod in nagios_server_timeperiods %}
+
+define timeperiod{
+	timeperiod_name {{ timeperiod.name }}
+	alias           {{ timeperiod.alias }}
+{% if timeperiod.periods | default(false) %}
+{% for key, value in timeperiod.periods.iteritems() %}
+	{{ key }}          {{ value }}
+{% endfor %}
+{% endif %}
+}
+
+{% endfor %}

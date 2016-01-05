@@ -1,0 +1,8 @@
+# tasks file for nagios-server
+---
+- name: install
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: nagios_server_install
+  tags: [configuration, nagios-server, nagios-server-install]
