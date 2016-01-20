@@ -14,7 +14,7 @@ None
 
 * `nagios_server_private_keys`: [default: `[]`]: Private key declarations
 * `nagios_server_private_keys.{n}.owner`: [optional, default `nagios`]: The name of the user that should own the file
-* `nagios_server_private_keys .{n}.group`: [optional, default `owner`, `nagios`]: The name of the group that should own the file
+* `nagios_server_private_keys.{n}.group`: [optional, default `owner`, `nagios`]: The name of the group that should own the file
 * `nagios_server_private_keys.{n}.mode`: [optional, default `0600`]: The UNIX permission mode bits of the file
 * `nagios_server_private_keys.{n}.src`: [required]: The local path of the key
 * `nagios_server_private_keys.{n}.dest`: [optional, default: default `src | basename`]: The remote path of the key (relative to `home/.ssh/`)
