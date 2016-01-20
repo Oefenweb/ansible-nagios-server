@@ -85,14 +85,14 @@ None
 * `nagios_server_generic_service.retain_status_information.`: [optional, default: `1`]: Retain status information across program restarts
 * `nagios_server_generic_service.retain_nonstatus_information.`: [optional, default: `1`]: Retain non-status information across program restarts
 * `nagios_server_generic_service.notification_interval.`: [optional, default: `0`]: Only send notifications on status change by default.
-* `nagios_server_generic_service.is_volatile.`: [optional, default: `0`]:
-* `nagios_server_generic_service.check_period.`: [optional, default: `24x7`]:
-* `nagios_server_generic_service.normal_check_interval.`: [optional, default: `5`]:
-* `nagios_server_generic_service.retry_check_interval.`: [optional, default: `1`]:
-* `nagios_server_generic_service.max_check_attempts.`: [optional, default: `4`]:
-* `nagios_server_generic_service.notification_period.`: [optional, default: `24x7`]:
-* `nagios_server_generic_service.notification_options.`: [optional, default: `w,u,c,r`]:
-* `nagios_server_generic_service.contact_groups.`: [optional, default: `admins`]:
+* `nagios_server_generic_service.is_volatile.`: [optional, default: `0`]: This directive is used to denote whether the service is "volatile"
+* `nagios_server_generic_service.check_period.`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which active checks of this service can be made.
+* `nagios_server_generic_service.normal_check_interval.`: [optional, default: `5`]:  The interval at which the service is checked under "normal" circumstances.
+* `nagios_server_generic_service.retry_check_interval.`: [optional, default: `1`]:  The interval at which the service is checked during retries.
+* `nagios_server_generic_service.max_check_attempts.`: [optional, default: `4`]: This directive is used to define the number of times that Nagios will retry the host check command if it returns any state other than an OK state.
+* `nagios_server_generic_service.notification_period.`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which notifications of events for this host can be sent out to contacts.
+* `nagios_server_generic_service.notification_options.`: [optional, default: `w,u,c,r`]: This directive is used to determine when notifications for the host should be sent out.
+* `nagios_server_generic_service.contact_groups.`: [optional, default: `admins`]: This is a list of the short names of the contact groups that should be notified whenever there are problems (or recoveries) with this service.
 * `nagios_server_generic_service.register.`: [optional, default: `0`]: DONT REGISTER THIS DEFINITION - ITS NOT A REAL SERVICE, JUST A TEMPLATE!
 
 * `nagios_server_services`: [default: `[]`]: Service declarations
