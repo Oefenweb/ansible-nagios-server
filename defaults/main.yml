@@ -104,6 +104,8 @@ nagios_server_commands_performance_data:
 
 nagios_server_commands_custom: []
 
+nagios_server_generic_service: {}
+
 nagios_server_services_presets_http:
   # check that web services are running
   hostgroup: http-servers

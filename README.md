@@ -70,6 +70,31 @@ None
 * `nagios_server_commands_performance_data.{n}.name`: [required]: Name of command
 * `nagios_server_commands_performance_data.{n}.line`: [required]: Command line
 
+* `nagios_server_generic_service`: [default: `{}`]: Generic service declarations
+* `nagios_server_generic_service.name.`: [optional, default: `generic-service`]: The 'name' of this service template
+* `nagios_server_generic_service.active_checks_enabled.`: [optional, default: `1`]: Active service checks are enabled
+* `nagios_server_generic_service.passive_checks_enabled.`: [optional, default: `1`]: Passive service checks are enabled/accepted
+* `nagios_server_generic_service.parallelize_check.`: [optional, default: `1`]: Active service checks should be parallelized (disabling this can lead to major performance problems)
+* `nagios_server_generic_service.obsess_over_service.`: [optional, default: `1`]: We should obsess over this service (if necessary)
+* `nagios_server_generic_service.check_freshness.`: [optional, default: `0`]: Default is to NOT check service 'freshness'
+* `nagios_server_generic_service.notifications_enabled.`: [optional, default: `1`]: Service notifications are enabled
+* `nagios_server_generic_service.event_handler_enabled.`: [optional, default: `1`]: Service event handler is enabled
+* `nagios_server_generic_service.flap_detection_enabled.`: [optional, default: `1`]: Flap detection is enabled
+* `nagios_server_generic_service.failure_prediction_enabled.`: [optional, default: `1`]: Failure prediction is enabled
+* `nagios_server_generic_service.process_perf_data.`: [optional, default: `1`]: Process performance data
+* `nagios_server_generic_service.retain_status_information.`: [optional, default: `1`]: Retain status information across program restarts
+* `nagios_server_generic_service.retain_nonstatus_information.`: [optional, default: `1`]: Retain non-status information across program restarts
+* `nagios_server_generic_service.notification_interval.`: [optional, default: `0`]: Only send notifications on status change by default.
+* `nagios_server_generic_service.is_volatile.`: [optional, default: `0`]:
+* `nagios_server_generic_service.check_period.`: [optional, default: `24x7`]:
+* `nagios_server_generic_service.normal_check_interval.`: [optional, default: `5`]:
+* `nagios_server_generic_service.retry_check_interval.`: [optional, default: `1`]:
+* `nagios_server_generic_service.max_check_attempts.`: [optional, default: `4`]:
+* `nagios_server_generic_service.notification_period.`: [optional, default: `24x7`]:
+* `nagios_server_generic_service.notification_options.`: [optional, default: `w,u,c,r`]:
+* `nagios_server_generic_service.contact_groups.`: [optional, default: `admins`]:
+* `nagios_server_generic_service.register.`: [optional, default: `0`]: DONT REGISTER THIS DEFINITION - ITS NOT A REAL SERVICE, JUST A TEMPLATE!
+
 * `nagios_server_services`: [default: `[]`]: Service declarations
 * `nagios_server_services.{n}.hostgroup`: [required]: Name of command
 * `nagios_server_services.{n}.description`: [required]: Command line
