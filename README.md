@@ -14,7 +14,7 @@ None
 
 * `nagios_server_private_keys`: [default: `[]`]: Private key declarations
 * `nagios_server_private_keys.{n}.owner`: [optional, default `nagios`]: The name of the user that should own the file
-* `nagios_server_private_keys .{n}.group`: [optional, default `owner`, `nagios`]: The name of the group that should own the file
+* `nagios_server_private_keys.{n}.group`: [optional, default `owner`, `nagios`]: The name of the group that should own the file
 * `nagios_server_private_keys.{n}.mode`: [optional, default `0600`]: The UNIX permission mode bits of the file
 * `nagios_server_private_keys.{n}.src`: [required]: The local path of the key
 * `nagios_server_private_keys.{n}.dest`: [optional, default: default `src | basename`]: The remote path of the key (relative to `home/.ssh/`)
@@ -69,6 +69,31 @@ None
 * `nagios_server_commands_performance_data`: [default: `[]`]: Performance data command declarations
 * `nagios_server_commands_performance_data.{n}.name`: [required]: Name of command
 * `nagios_server_commands_performance_data.{n}.line`: [required]: Command line
+
+* `nagios_server_generic_service`: [default: `{}`]: Generic service declarations
+* `nagios_server_generic_service.name.`: [optional, default: `generic-service`]: The 'name' of this service template
+* `nagios_server_generic_service.active_checks_enabled.`: [optional, default: `1`]: Active service checks are enabled
+* `nagios_server_generic_service.passive_checks_enabled.`: [optional, default: `1`]: Passive service checks are enabled/accepted
+* `nagios_server_generic_service.parallelize_check.`: [optional, default: `1`]: Active service checks should be parallelized (disabling this can lead to major performance problems)
+* `nagios_server_generic_service.obsess_over_service.`: [optional, default: `1`]: We should obsess over this service (if necessary)
+* `nagios_server_generic_service.check_freshness.`: [optional, default: `0`]: Default is to NOT check service 'freshness'
+* `nagios_server_generic_service.notifications_enabled.`: [optional, default: `1`]: Service notifications are enabled
+* `nagios_server_generic_service.event_handler_enabled.`: [optional, default: `1`]: Service event handler is enabled
+* `nagios_server_generic_service.flap_detection_enabled.`: [optional, default: `1`]: Flap detection is enabled
+* `nagios_server_generic_service.failure_prediction_enabled.`: [optional, default: `1`]: Failure prediction is enabled
+* `nagios_server_generic_service.process_perf_data.`: [optional, default: `1`]: Process performance data
+* `nagios_server_generic_service.retain_status_information.`: [optional, default: `1`]: Retain status information across program restarts
+* `nagios_server_generic_service.retain_nonstatus_information.`: [optional, default: `1`]: Retain non-status information across program restarts
+* `nagios_server_generic_service.notification_interval.`: [optional, default: `0`]: Only send notifications on status change by default.
+* `nagios_server_generic_service.is_volatile.`: [optional, default: `0`]: This directive is used to denote whether the service is "volatile"
+* `nagios_server_generic_service.check_period.`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which active checks of this service can be made.
+* `nagios_server_generic_service.normal_check_interval.`: [optional, default: `5`]:  The interval at which the service is checked under "normal" circumstances.
+* `nagios_server_generic_service.retry_check_interval.`: [optional, default: `1`]:  The interval at which the service is checked during retries.
+* `nagios_server_generic_service.max_check_attempts.`: [optional, default: `4`]: This directive is used to define the number of times that Nagios will retry the host check command if it returns any state other than an OK state.
+* `nagios_server_generic_service.notification_period.`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which notifications of events for this host can be sent out to contacts.
+* `nagios_server_generic_service.notification_options.`: [optional, default: `w,u,c,r`]: This directive is used to determine when notifications for the host should be sent out.
+* `nagios_server_generic_service.contact_groups.`: [optional, default: `admins`]: This is a list of the short names of the contact groups that should be notified whenever there are problems (or recoveries) with this service.
+* `nagios_server_generic_service.register.`: [optional, default: `0`]: DONT REGISTER THIS DEFINITION - ITS NOT A REAL SERVICE, JUST A TEMPLATE!
 
 * `nagios_server_services`: [default: `[]`]: Service declarations
 * `nagios_server_services.{n}.hostgroup`: [required]: Name of command
