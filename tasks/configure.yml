@@ -8,6 +8,16 @@
   with_items: nagios_server_htpasswd_users
   tags: [configuration, nagios-server, nagios-server-configuration]
 
+- name: copy cgi configuration file
+  template:
+    src: etc/nagios3/cgi.cfg.j2
+    dest: /etc/nagios3/cgi.cfg
+    owner: root
+    group: nagios
+    mode: 0640
+  notify: reload nagios-server
+  tags: [configuration, nagios-server, nagios-server-configuration]
+
 - name: copy commands configuration file
   template:
     src: etc/nagios3/commands.cfg.j2
