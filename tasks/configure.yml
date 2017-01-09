@@ -5,8 +5,9 @@
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
-  with_items: nagios_server_htpasswd_users
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  with_items: "{{ nagios_server_htpasswd_users }}"
+  tags:
+    - nagios-server-configuration-apache-htpasswd-users
 
 - name: copy cgi configuration file
   template:
@@ -16,7 +17,8 @@
     group: nagios
     mode: 0644
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-cgi-file
 
 - name: copy commands configuration file
   template:
@@ -26,7 +28,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-commands-file
 
 - name: copy resource configuration file
   template:
@@ -36,7 +39,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-resource-file
 
 - name: copy contacts configuration files
   template:
@@ -46,7 +50,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-contacts-files
 
 - name: copy hostextinfo configuration files
   template:
@@ -56,7 +61,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-hostextinfo-files
 
 - name: copy hostgroups configuration files
   template:
@@ -66,7 +72,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-hostgroups-files
 
 - name: copy generic service template configuration file
   template:
@@ -76,7 +83,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-generic-service-template-file
 
 - name: copy services configuration files
   template:
@@ -86,7 +94,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-services-files
 
 - name: copy timeperiods configuration files
   template:
@@ -96,7 +105,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-timeperiods-files
 
 - name: copy generic host template configuration file
   template:
@@ -106,7 +116,8 @@
     group: nagios
     mode: 0640
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-generic-host-template-file
 
 - name: copy host configuration files
   template:
@@ -115,6 +126,7 @@
     owner: root
     group: nagios
     mode: 0640
-  with_items: nagios_server_hosts
+  with_items: "{{ nagios_server_hosts }}"
   notify: reload nagios-server
-  tags: [configuration, nagios-server, nagios-server-configuration]
+  tags:
+    - nagios-server-configuration-copy-host-files

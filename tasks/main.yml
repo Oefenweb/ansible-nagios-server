@@ -1,5 +1,19 @@
 # tasks file for nagios-server
 ---
 - include: install.yml
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-install
+
 - include: private-keys.yml
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-private-keys
+
 - include: configure.yml
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-configure

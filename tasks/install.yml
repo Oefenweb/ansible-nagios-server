@@ -3,6 +3,7 @@
 - name: install
   apt:
     name: "{{ item }}"
-    state: latest
-  with_items: nagios_server_install
-  tags: [configuration, nagios-server, nagios-server-install]
+    state: "{{ apt_install_state | default('latest') }}"
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  with_items: "{{ nagios_server_install }}"

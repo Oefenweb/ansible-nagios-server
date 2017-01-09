@@ -1,6 +1,6 @@
 ## nagios-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/list#/roles/6435)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/tersmitten/nagios-server)
 
 Set up nagios in Debian-like systems (server side).
 

@@ -7,9 +7,10 @@
     owner: "{{ item.owner | default('nagios') }}"
     group: "{{ item.group | default(item.owner) | default('nagios') }}"
     mode: 0700
-  with_items: nagios_server_private_keys
+  with_items: "{{ nagios_server_private_keys }}"
   when: item.state is undefined or item.state == 'present'
-  tags: [configuration, nagios-server, nagios-server-private-keys]
+  tags:
+    - nagios-server-private-keys-create-ssh-directory
 
 - name: add private keys
   copy:
@@ -18,14 +19,16 @@
     owner: "{{ item.owner | default('nagios') }}"
     group: "{{ item.group | default(item.owner) | default('nagios') }}"
     mode: "{{ item.mode | default('0600') }}"
-  with_items: nagios_server_private_keys
+  with_items: "{{ nagios_server_private_keys }}"
   when: item.state is undefined or item.state == 'present'
-  tags: [configuration, nagios-server, nagios-server-private-keys]
+  tags:
+    - nagios-server-private-keys-add
 
 - name: remove private keys
   file:
     path: "~{{ item.owner }}/.ssh/{{ item.dest | default(item.src | basename) }}"
     state: absent
-  with_items: nagios_server_private_keys
+  with_items: "{{ nagios_server_private_keys }}"
   when: item.state is defined and item.state == 'absent'
-  tags: [configuration, nagios-server, nagios-server-private-keys]
+  tags:
+    - nagios-server-private-keys-remove
