@@ -37,7 +37,7 @@ define host{
         notification_options            {{ host_template.notification_options | default('d,u,r') }}
         contact_groups                  {{ host_template.contact_groups | default('admins') }}
         register                        {{ host_template.register | default(0) }}       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL HOST, JUST A TEMPLATE!
- {% for host_template_variable in host_template.variables %}
+ {% for host_template_variable in host_template.variables | default([]) %}
       {{ host_template_variable.name }} {{ host_template_variable.value }}
  {% endfor %}
 
