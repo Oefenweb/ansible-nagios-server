@@ -78,6 +78,7 @@ None
 * `nagios_server_hostgroups.{n}.members`: [required]: List of hostgroup members
 
 * `nagios_server_hosts`: [default: `[]`]: Host declarations
+* `nagios_server_hosts.{n}.host_template`: [optional, default: `generic-host`]: Host definition template
 * `nagios_server_hosts.{n}.name`: [required]: Hostname
 * `nagios_server_hosts.{n}.alias`: [required]: Host alias
 * `nagios_server_hosts.{n}.address`: [required]: Host address
