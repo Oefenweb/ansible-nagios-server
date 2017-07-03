@@ -44,6 +44,26 @@ None
 * `nagios_server_contactgroups.{n}.alias`: [required]: Contactgroup alias
 * `nagios_server_contactgroups.{n}.members`: [required]: List of contactgroup members
 
+* `nagios_server_host_templates`: [default: `[]`]: Host definition template
+* `nagios_server_host_templates.{n}.name`: [required]: The name of this host template
+* `nagios_server_host_templates.{n}.notifications_enabled`: [optional, default: `1`]: Host notifications are enabled
+* `nagios_server_host_templates.{n}.event_handler_enabled`: [optional, default: `1`]: Host event handler is enabled
+* `nagios_server_host_templates.{n}.flap_detection_enabled`: [optional, default: `1`]: Flap detection is enabled
+* `nagios_server_host_templates.{n}.failure_prediction_enabled`: [optional, default: `1`]: Failure prediction is enabled
+* `nagios_server_host_templates.{n}.process_perf_data`: [optional, default: `1`]: Process performance data
+* `nagios_server_host_templates.{n}.retain_status_information`: [optional, default: `1`]: Retain status information across program restarts
+* `nagios_server_host_templates.{n}.retain_nonstatus_information`: [optional, default: `1`]: Retain non-status information across program restarts
+* `nagios_server_host_templates.{n}.check_command`: [optional, default: `check-host-alive`]: Default check command
+* `nagios_server_host_templates.{n}.max_check_attempts`: [optional, default: `10`]: Maxium check attempts
+* `nagios_server_host_templates.{n}.notification_interval`: [optional, default: `0`]: Notification interval
+* `nagios_server_host_templates.{n}.notification_period`: [optional, default: `24x7`]: Notification period
+* `nagios_server_host_templates.{n}.notification_options`: [optional, default: `d,u,r`]: Notification options
+* `nagios_server_host_templates.{n}.contact_groups`: [optional, default: `admins`]: Default contact groups
+* `nagios_server_host_templates.{n}.register`: [optional, default: `0`]: Register host
+* `nagios_server_host_templates.{n}.variables`: [optional, default: `[]`]: List of optional host variables
+* `nagios_server_host_templates.{n}.variables.{n}.name`: [required]: The name of variable
+* `nagios_server_host_templates.{n}.variables.{n}.value`: [required]: The value of variable
+
 * `nagios_server_hostextinfo`: [default: `[]`]: Hostextinfo declarations
 * `nagios_server_hostextinfo.{n}.hostgroup`: [required]: Hostgroup name
 * `nagios_server_hostextinfo.{n}.notes`: [required]: Notes
@@ -58,6 +78,7 @@ None
 * `nagios_server_hostgroups.{n}.members`: [required]: List of hostgroup members
 
 * `nagios_server_hosts`: [default: `[]`]: Host declarations
+* `nagios_server_hosts.{n}.host_template`: [optional, default: `generic-host`]: Host definition template
 * `nagios_server_hosts.{n}.name`: [required]: Hostname
 * `nagios_server_hosts.{n}.alias`: [required]: Host alias
 * `nagios_server_hosts.{n}.address`: [required]: Host address
