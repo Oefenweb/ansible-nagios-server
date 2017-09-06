@@ -68,7 +68,7 @@ nagios_server_hostgroups:
   # A list of your web servers
   - name: http-servers
     alias: HTTP servers
-    members: 
+    members:
       - localhost
   # A list of your ssh-accessible servers
   - name: ssh-servers
@@ -167,3 +167,5 @@ nagios_server_timeperiods:
   - "{{ nagios_server_timeperiods_presets_workhours }}"
   - "{{ nagios_server_timeperiods_presets_nonworkhours }}"
   - "{{ nagios_server_timeperiods_presets_never }}"
+
+nagios_server_absent_paths: []
