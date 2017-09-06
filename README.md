@@ -132,6 +132,8 @@ None
 * `nagios_server_timeperiods.{n}.periods.key`: [required]: Day of the week (eg. monday)
 * `nagios_server_timeperiods.{n}.periods.key.value`: [required]: Time interval (eg. 08:00-23:00)
 
+* `nagios_server_absent_paths`: [default: `[]`]: Paths to remove (e.g. `['/etc/nagios3/conf.d/web-01.example.com_nagios2.cfg']`)
+
 ## Dependencies
 
 None

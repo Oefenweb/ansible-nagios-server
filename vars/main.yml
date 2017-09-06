@@ -1,2 +1,6 @@
 # vars file for nagios-server
 ---
+nagios_server_default_owner: root
+nagios_server_default_group: nagios
+nagios_server_default_directory_mode: '0750'
+nagios_server_default_file_mode: '0640'

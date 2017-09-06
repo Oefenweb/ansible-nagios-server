@@ -1,6 +1,6 @@
 # tasks file for nagios-server
 ---
-- name: install
+- name: install | dependencies
   apt:
     name: "{{ item }}"
     state: "{{ apt_install_state | default('latest') }}"

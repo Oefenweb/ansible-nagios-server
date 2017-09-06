@@ -1,132 +1,142 @@
 # tasks file for nagios-server
 ---
-- name: apache htpasswd users
+- name: configure | apache htpasswd users
   htpasswd:
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
   with_items: "{{ nagios_server_htpasswd_users }}"
   tags:
-    - nagios-server-configuration-apache-htpasswd-users
+    - nagios-server-configure-apache-htpasswd-users
 
-- name: copy cgi configuration file
+- name: configure | copy cgi file
   template:
     src: etc/nagios3/cgi.cfg.j2
     dest: /etc/nagios3/cgi.cfg
-    owner: root
-    group: nagios
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    # Needed for www-data to read this file
     mode: 0644
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-cgi-file
+    - nagios-server-configure-copy-cgi-file
 
-- name: copy commands configuration file
+- name: configure | copy commands file
   template:
     src: etc/nagios3/commands.cfg.j2
     dest: /etc/nagios3/commands.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-commands-file
+    - nagios-server-configure-copy-commands-file
 
-- name: copy resource configuration file
+- name: configure | copy resource file
   template:
     src: etc/nagios3/resource.cfg.j2
     dest: /etc/nagios3/resource.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-resource-file
+    - nagios-server-configure-copy-resource-file
 
-- name: copy contacts configuration files
+- name: configure | copy contacts files
   template:
     src: etc/nagios3/conf.d/contacts_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/contacts_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-contacts-files
+    - nagios-server-configure-copy-contacts-files
 
-- name: copy hostextinfo configuration files
+- name: configure | copy hostextinfo files
   template:
     src: etc/nagios3/conf.d/extinfo_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/extinfo_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-hostextinfo-files
+    - nagios-server-configure-copy-hostextinfo-files
 
-- name: copy hostgroups configuration files
+- name: configure | copy hostgroups files
   template:
     src: etc/nagios3/conf.d/hostgroups_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/hostgroups_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-hostgroups-files
+    - nagios-server-configure-copy-hostgroups-files
 
-- name: copy generic service template configuration file
+- name: configure | copy generic service template file
   template:
     src: etc/nagios3/conf.d/generic-service_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/generic-service_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-generic-service-template-file
+    - nagios-server-configure-copy-generic-service-template-file
 
-- name: copy services configuration files
+- name: configure | copy services files
   template:
     src: etc/nagios3/conf.d/services_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/services_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-services-files
+    - nagios-server-configure-copy-services-files
 
-- name: copy timeperiods configuration files
+- name: configure | copy timeperiods files
   template:
     src: etc/nagios3/conf.d/timeperiods_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/timeperiods_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-timeperiods-files
+    - nagios-server-configure-copy-timeperiods-files
 
-- name: copy generic host template configuration file
+- name: configure | copy generic host template file
   template:
     src: etc/nagios3/conf.d/generic-host_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/generic-host_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-generic-host-template-file
+    - nagios-server-configure-copy-generic-host-template-file
 
-- name: copy host configuration files
+- name: configure | copy host files
   template:
     src: etc/nagios3/conf.d/hostname_nagios2.cfg.j2
-    dest: /etc/nagios3/conf.d/{{ item.name }}_nagios2.cfg
-    owner: root
-    group: nagios
-    mode: 0640
+    dest: "/etc/nagios3/conf.d/{{ item.name }}_nagios2.cfg"
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
   with_items: "{{ nagios_server_hosts }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configuration-copy-host-files
+    - nagios-server-configure-copy-host-files
+
+- name: configure | remove paths
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ nagios_server_absent_paths }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-remove

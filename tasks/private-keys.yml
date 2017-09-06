@@ -1,6 +1,6 @@
 # tasks file for nagios-server
 ---
-- name: create ssh directory
+- name: private keys | create ssh directory
   file:
     path: "~{{ item.owner | default('nagios') }}/.ssh"
     state: directory
@@ -12,7 +12,7 @@
   tags:
     - nagios-server-private-keys-create-ssh-directory
 
-- name: add private keys
+- name: private keys | add
   copy:
     src: "{{ item.src }}"
     dest: "~{{ item.owner | default('nagios') }}/.ssh/{{ item.dest | default(item.src | basename) }}"
@@ -24,7 +24,7 @@
   tags:
     - nagios-server-private-keys-add
 
-- name: remove private keys
+- name: private keys | remove
   file:
     path: "~{{ item.owner }}/.ssh/{{ item.dest | default(item.src | basename) }}"
     state: absent
