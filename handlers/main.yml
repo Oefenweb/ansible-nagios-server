@@ -4,3 +4,4 @@
   service:
     name: nagios3
     state: reloaded
+  when: service_default_state | default('started') == 'started'
