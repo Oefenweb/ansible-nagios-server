@@ -140,3 +140,13 @@
   notify: reload nagios-server
   tags:
     - nagios-server-configure-remove
+
+- name: configure | enable external commands
+  lineinfile:
+    path: /etc/nagios3/nagios.cfg
+    regexp: '^check_external_commands='
+    line: check_external_commands=1
+  when: nagios_server_enable_external_commands
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-enable-external-commands

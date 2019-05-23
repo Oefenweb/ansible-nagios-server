@@ -169,3 +169,5 @@ nagios_server_timeperiods:
   - "{{ nagios_server_timeperiods_presets_never }}"
 
 nagios_server_absent_paths: []
+
+nagios_server_enable_external_commands: false

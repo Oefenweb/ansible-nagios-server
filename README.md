@@ -134,6 +134,8 @@ None
 
 * `nagios_server_absent_paths`: [default: `[]`]: Paths to remove (e.g. `['/etc/nagios3/conf.d/web-01.example.com_nagios2.cfg']`)
 
+* `nagios_server_enable_external_commands`: [default: `false`]: If you want to be able to use the CGI command interface you will have to enable this.
+
 ## Dependencies
 
 None
