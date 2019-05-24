@@ -141,6 +141,25 @@
   tags:
     - nagios-server-configure-remove
 
+- name: configure | set command dir permissions
+  file:
+    path: /var/lib/nagios3/rw
+    state: directory
+    mode: "g+x"
+    # Needed for www-data to access this directory
+  when: nagios_server_enable_external_commands
+  tags:
+    - nagios-server-configure-enable-external-commands
+    
+- name: configure | add www-data user to nagios group
+  user:
+    name: www-data
+    groups: nagios
+    append: yes
+  when: nagios_server_enable_external_commands
+  tags:
+    - nagios-server-configure-enable-external-commands
+
 - name: configure | enable external commands
   lineinfile:
     path: /etc/nagios3/nagios.cfg
