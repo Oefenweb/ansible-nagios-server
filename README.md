@@ -118,6 +118,7 @@ None
 * `nagios_server_generic_service.notification_period`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which notifications of events for this host can be sent out to contacts.
 * `nagios_server_generic_service.notification_options`: [optional, default: `w,u,c,r`]: This directive is used to determine when notifications for the host should be sent out.
 * `nagios_server_generic_service.contact_groups`: [optional, default: `admins`]: This is a list of the short names of the contact groups that should be notified whenever there are problems (or recoveries) with this service.
+* `nagios_server_generic_service.action_url`: [optional, default: undefined]: 	This directive is used to define an optional URL that can be used to provide more actions to be performed on the service. (eg Displaying the nagiosgraph page).
 * `nagios_server_generic_service.register`: [optional, default: `0`]: DONT REGISTER THIS DEFINITION - ITS NOT A REAL SERVICE, JUST A TEMPLATE!
 
 * `nagios_server_services`: [default: `[]`]: Service declarations

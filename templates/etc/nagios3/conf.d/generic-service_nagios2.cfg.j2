@@ -24,5 +24,8 @@ define service{
 	notification_period             {{ nagios_server_generic_service.notification_period | default('24x7') }}
 	notification_options            {{ nagios_server_generic_service.notification_options | default('w,u,c,r') }}
 	contact_groups                  {{ nagios_server_generic_service.contact_groups | default('admins') }}
+{% if nagios_server_generic_service.action_url is defined %}
+    action_url                      {{ nagios_server_generic_service.action_url }}
+{% endif %}
 	register                        {{ nagios_server_generic_service.register | default(0) }}
 }
