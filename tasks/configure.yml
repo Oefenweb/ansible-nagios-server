@@ -147,7 +147,7 @@
     state: directory
     mode: "g+x"
     # Needed for www-data to access this directory
-  when: nagios_server_enable_external_commands
+  when: nagios_server_enable_external_commands | bool
   tags:
     - nagios-server-configure-enable-external-commands
     
@@ -156,7 +156,7 @@
     name: www-data
     groups: nagios
     append: yes
-  when: nagios_server_enable_external_commands
+  when: nagios_server_enable_external_commands | bool
   tags:
     - nagios-server-configure-enable-external-commands
 
@@ -165,7 +165,7 @@
     path: /etc/nagios3/nagios.cfg
     regexp: '^check_external_commands='
     line: check_external_commands=1
-  when: nagios_server_enable_external_commands
+  when: nagios_server_enable_external_commands | bool
   notify: reload nagios-server
   tags:
     - nagios-server-configure-enable-external-commands
