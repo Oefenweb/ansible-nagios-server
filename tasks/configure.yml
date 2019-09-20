@@ -160,12 +160,22 @@
   tags:
     - nagios-server-configure-enable-external-commands
 
-- name: configure | enable external commands
+- name: configure | check external commands option
   lineinfile:
     path: /etc/nagios3/nagios.cfg
     regexp: '^check_external_commands='
     line: check_external_commands=1
-  when: nagios_server_enable_external_commands | bool
+  when: nagios_server_check_external_commands | bool
   notify: reload nagios-server
   tags:
-    - nagios-server-configure-enable-external-commands
+    - nagios-server-configure-check-external-commands
+
+- name: configure | regular expression matching option
+  lineinfile:
+    path: /etc/nagios3/nagios.cfg
+    regexp: '^use_regexp_matching='
+    line: use_regexp_matching=1
+  when: nagios_server_use_regexp_matching | bool
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-use-regexp-matching
