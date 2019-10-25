@@ -1,6 +1,7 @@
 ## nagios-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/nagios-server)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/nagios-server)
 
 Set up nagios in Debian-like systems (server side).
 
@@ -133,11 +134,10 @@ None
 * `nagios_server_timeperiods.{n}.periods.key`: [required]: Day of the week (eg. monday)
 * `nagios_server_timeperiods.{n}.periods.key.value`: [required]: Time interval (eg. 08:00-23:00)
 
+* `nagios_server_check_external_commands`: [default: `false`]: If you want to be able to use the CGI command interface you will have to enable this
+* `nagios_server_use_regexp_matching`: [default: `false`]: This option determines whether or not various directives in your object definitions will be processed as regular expressions
+
 * `nagios_server_absent_paths`: [default: `[]`]: Paths to remove (e.g. `['/etc/nagios3/conf.d/web-01.example.com_nagios2.cfg']`)
-
-* `nagios_server_check_external_commands`: [default: `false`]: If you want to be able to use the CGI command interface you will have to enable this.
-
-* `nagios_server_use_regexp_matching`: [default: `false`]: This option determines whether or not various directives in your object definitions will be processed as regular expressions.
 
 ## Dependencies
 

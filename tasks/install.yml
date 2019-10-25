@@ -6,5 +6,5 @@
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-  register: apt_result
-  until: apt_result is succeeded
+  register: _apt_result
+  until: _apt_result is succeeded

@@ -4,3 +4,5 @@ nagios_server_default_owner: root
 nagios_server_default_group: nagios
 nagios_server_default_directory_mode: '0750'
 nagios_server_default_file_mode: '0640'
+
+nagios_server_etc_nagios3_nagios_file: /etc/nagios3/nagios.cfg
