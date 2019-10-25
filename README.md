@@ -1,6 +1,7 @@
 ## nagios-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/nagios-server)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-nagios-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-nagios-server)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-nagios--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/nagios-server)
 
 Set up nagios in Debian-like systems (server side).
 
@@ -118,6 +119,7 @@ None
 * `nagios_server_generic_service.notification_period`: [optional, default: `24x7`]: This directive is used to specify the short name of the time period during which notifications of events for this host can be sent out to contacts.
 * `nagios_server_generic_service.notification_options`: [optional, default: `w,u,c,r`]: This directive is used to determine when notifications for the host should be sent out.
 * `nagios_server_generic_service.contact_groups`: [optional, default: `admins`]: This is a list of the short names of the contact groups that should be notified whenever there are problems (or recoveries) with this service.
+* `nagios_server_generic_service.action_url`: [optional, default: undefined]: 	This directive is used to define an optional URL that can be used to provide more actions to be performed on the service. (eg Displaying the nagiosgraph page).
 * `nagios_server_generic_service.register`: [optional, default: `0`]: DONT REGISTER THIS DEFINITION - ITS NOT A REAL SERVICE, JUST A TEMPLATE!
 
 * `nagios_server_services`: [default: `[]`]: Service declarations
@@ -131,6 +133,9 @@ None
 * `nagios_server_timeperiods.{n}.periods`: [default: `[]`]: Period intervals
 * `nagios_server_timeperiods.{n}.periods.key`: [required]: Day of the week (eg. monday)
 * `nagios_server_timeperiods.{n}.periods.key.value`: [required]: Time interval (eg. 08:00-23:00)
+
+* `nagios_server_check_external_commands`: [default: `false`]: If you want to be able to use the CGI command interface you will have to enable this
+* `nagios_server_use_regexp_matching`: [default: `false`]: This option determines whether or not various directives in your object definitions will be processed as regular expressions
 
 * `nagios_server_absent_paths`: [default: `[]`]: Paths to remove (e.g. `['/etc/nagios3/conf.d/web-01.example.com_nagios2.cfg']`)
 

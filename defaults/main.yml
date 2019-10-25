@@ -168,4 +168,7 @@ nagios_server_timeperiods:
   - "{{ nagios_server_timeperiods_presets_nonworkhours }}"
   - "{{ nagios_server_timeperiods_presets_never }}"
 
+nagios_server_check_external_commands: false
+nagios_server_use_regexp_matching: false
+
 nagios_server_absent_paths: []
