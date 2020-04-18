@@ -1,6 +1,7 @@
 # meta file for nagios-server
 ---
 galaxy_info:
+  role_name: nagios-server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up nagios in Debian-like systems (server side)
