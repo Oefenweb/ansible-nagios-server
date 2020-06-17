@@ -2,12 +2,12 @@
 
 ###########################################################################
 #
-# RESOURCE.CFG - Resource File for Nagios 
+# RESOURCE.CFG - Resource File for Nagios
 #
 # You can define $USERx$ macros in this file, which can in turn be used
 # in command definitions in your host config file(s).  $USERx$ macros are
-# useful for storing sensitive information such as usernames, passwords, 
-# etc.  They are also handy for specifying the path to plugins and 
+# useful for storing sensitive information such as usernames, passwords,
+# etc.  They are also handy for specifying the path to plugins and
 # event handlers - if you decide to move the plugins or event handlers to
 # a different directory in the future, you can just update one or two
 # $USERx$ macros, instead of modifying a lot of command definitions.
@@ -22,6 +22,6 @@
 #
 ###########################################################################
 
-{% for key, value in nagios_server_user_macros.iteritems() %}
+{% for key, value in nagios_server_user_macros.items() %}
 $USER{{ key }}$={{ value }}
 {% endfor %}
