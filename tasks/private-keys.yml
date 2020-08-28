@@ -29,6 +29,8 @@
     path: "~{{ item.owner }}/.ssh/{{ item.dest | default(item.src | basename) }}"
     state: absent
   with_items: "{{ nagios_server_private_keys }}"
-  when: item.state is defined and item.state == 'absent'
+  when:
+    - item.state is defined
+    - item.state == 'absent'
   tags:
     - nagios-server-private-keys-remove

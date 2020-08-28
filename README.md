@@ -11,7 +11,7 @@ None
 
 #### Variables
 
-None
+* `nagios_server_python_version` [default: `2`]: Python version to use.
 
 * `nagios_server_private_keys`: [default: `[]`]: Private key declarations
 * `nagios_server_private_keys.{n}.owner`: [optional, default `nagios`]: The name of the user that should own the file

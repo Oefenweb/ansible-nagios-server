@@ -3,8 +3,10 @@
 - hosts: localhost
   connection: local
   become: true
+  pre_tasks:
+    - include: pre.yml
   roles:
     - ../../
   vars:
     nagios_server_private_keys:
-      - src: id_rsa
+      - src: "{{ playbook_dir }}/../files/id_rsa"
