@@ -22,6 +22,6 @@
 #
 ###########################################################################
 
-{% for key, value in nagios_server_user_macros.items() %}
+{% for key, value in nagios_server_user_macros.items() | sort %}
 $USER{{ key }}$={{ value }}
 {% endfor %}

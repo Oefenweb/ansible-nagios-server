@@ -10,7 +10,7 @@ define timeperiod{
 	timeperiod_name {{ timeperiod.name }}
 	alias           {{ timeperiod.alias }}
 {% if timeperiod.periods | default(false) %}
-{% for key, value in timeperiod.periods.items() %}
+{% for key, value in timeperiod.periods.items() | sort %}
 	{{ key }}          {{ value }}
 {% endfor %}
 {% endif %}
