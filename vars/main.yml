@@ -1,4 +1,4 @@
-# vars file for nagios-server
+# vars file
 ---
 nagios_server_default_owner: root
 nagios_server_default_group: nagios

@@ -1,4 +1,4 @@
-# defaults file for nagios-server
+# defaults file
 ---
 nagios_server_htpasswd_users: []
 

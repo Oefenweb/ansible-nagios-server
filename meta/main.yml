@@ -1,6 +1,7 @@
-# meta file for nagios-server
+# meta file
 ---
 galaxy_info:
+  namespace: oefenweb
   role_name: nagios-server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.

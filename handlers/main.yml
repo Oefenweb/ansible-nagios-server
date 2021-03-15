@@ -1,4 +1,4 @@
-# handlers file for nagios-server
+# handlers file
 ---
 - name: reload nagios-server
   service:

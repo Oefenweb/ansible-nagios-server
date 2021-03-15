@@ -1,4 +1,4 @@
-# tasks file for nagios-server
+# tasks file
 ---
 - name: private keys | create ssh directory
   file:
