@@ -10,7 +10,8 @@
 
 - name: pre | generate key pair
   command: >
-    ssh-keygen -t rsa -b 2048 -C '' -P '' -f {{ playbook_dir }}/../files/id_rsa -q
+    ssh-keygen -t rsa -b 2048 -C '' -P '' -f {{ nagios_server_private_key_file }} -q
   args:
-    creates: "{{ playbook_dir }}/../files/id_rsa"
+    creates: "{{ nagios_server_private_key_file }}"
+  connection: local
   become: false

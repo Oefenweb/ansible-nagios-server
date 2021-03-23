@@ -1,0 +1,6 @@
+# vars file
+---
+nagios_server_private_keys:
+  - src: "{{ nagios_server_private_key_file }}"
+
+nagios_server_private_key_file: "{{ playbook_dir }}/../files/id_rsa"

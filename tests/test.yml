@@ -4,9 +4,8 @@
   connection: local
   become: true
   pre_tasks:
+    - name: include vars
+      include_vars: main.yml
     - include: pre.yml
   roles:
     - ../../
-  vars:
-    nagios_server_private_keys:
-      - src: "{{ playbook_dir }}/../files/id_rsa"
