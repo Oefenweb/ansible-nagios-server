@@ -5,6 +5,8 @@
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
+    mode: 0644
+    no_log: true
   with_items: "{{ nagios_server_htpasswd_users }}"
   tags:
     - nagios-server-configure-apache-htpasswd-users
@@ -134,23 +136,23 @@
 
 - block:
 
-  - name: configure | set command dir permissions
-    file:
-      path: /var/lib/nagios3/rw
-      state: directory
-      mode: 'g+x'
-      # Needed for www-data to access this directory
-  - name: configure | add www-data user to nagios group
-    user:
-      name: www-data
-      groups: "{{ nagios_server_default_group }}"
-      append: true
-  - name: configure | check external commands option
-    lineinfile:
-      path: "{{ nagios_server_etc_nagios3_nagios_file }}"
-      regexp: '^check_external_commands='
-      line: check_external_commands=1
-    notify: reload nagios-server
+    - name: configure | set command dir permissions
+      file:
+        path: /var/lib/nagios3/rw
+        state: directory
+        mode: 'g+x'
+        # Needed for www-data to access this directory
+    - name: configure | add www-data user to nagios group
+      user:
+        name: www-data
+        groups: "{{ nagios_server_default_group }}"
+        append: true
+    - name: configure | check external commands option
+      lineinfile:
+        path: "{{ nagios_server_etc_nagios3_nagios_file }}"
+        regexp: '^check_external_commands='
+        line: check_external_commands=1
+      notify: reload nagios-server
 
   when: nagios_server_check_external_commands | bool
   tags:
