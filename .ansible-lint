@@ -1,4 +1,4 @@
 ---
 warn_list:
   - '106'
-  - no-log
+  - no-log-password
