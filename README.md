@@ -141,6 +141,10 @@ None
 
 None
 
+## Recommended
+
+* `nagios-client` ([see](https://github.com/Oefenweb/ansible-nagios-client))
+
 #### Example
 
 ```yaml
