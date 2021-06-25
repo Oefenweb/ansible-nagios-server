@@ -1,14 +1,13 @@
 # pre test file
 ---
-- name: pre | install dependencies
+- name: install dependencies
   apt:
     name:
       - openssh-client
     state: "{{ apt_install_state | default('latest') }}"
-    update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
 
-- name: pre | generate key pair
+- name: generate ssh key
   command: >
     ssh-keygen -t rsa -b 2048 -C '' -P '' -f {{ nagios_server_private_key_file }} -q
   args:

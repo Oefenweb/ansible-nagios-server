@@ -3,4 +3,6 @@
 nagios_server_private_keys:
   - src: "{{ nagios_server_private_key_file }}"
 
-nagios_server_private_key_file: "{{ playbook_dir }}/../files/id_rsa"
+nagios_server_ssh_directory: "{{ playbook_dir }}/../files"
+nagios_server_private_key_file: "{{ nagios_server_ssh_directory }}/id_rsa"
+nagios_server_public_key_file: "{{ nagios_server_private_key_file }}.pub"
