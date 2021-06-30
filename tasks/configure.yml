@@ -6,7 +6,6 @@
     name: "{{ item.name }}"
     password: "{{ item.password }}"
     mode: 0644
-    no_log: true
   with_items: "{{ nagios_server_htpasswd_users }}"
   tags:
     - nagios-server-configure-apache-htpasswd-users
