@@ -1,7 +1,8 @@
 {{ ansible_managed | comment }}
 #################################################################
 #
-# CGI.CFG - Sample CGI Configuration File for Nagios
+# CGI.CFG - Sample CGI Configuration File for Nagios 4.3.4
+#
 #
 #################################################################
 
@@ -11,7 +12,7 @@
 # The CGIs will read the main and host config files for any other
 # data they might need.
 
-main_config_file=/etc/nagios3/nagios.cfg
+main_config_file=/etc/nagios4/nagios.cfg
 
 
 
@@ -20,7 +21,7 @@ main_config_file=/etc/nagios3/nagios.cfg
 # value is used to locate the logo images needed by the statusmap
 # and statuswrl CGIs.
 
-physical_html_path=/usr/share/nagios3/htdocs
+physical_html_path=/usr/share/nagios4/htdocs
 
 
 
@@ -32,7 +33,7 @@ physical_html_path=/usr/share/nagios3/htdocs
 # http://www.myhost.com/nagios, this value should be '/nagios'
 # (without the quotes).
 
-url_html_path=/nagios3
+url_html_path=/nagios4
 
 
 
@@ -42,7 +43,7 @@ url_html_path=/nagios3
 # Values: 0 = disables context-sensitive help
 #         1 = enables context-sensitive help
 
-show_context_help=1
+show_context_help=0
 
 
 
@@ -54,22 +55,6 @@ show_context_help=1
 
 use_pending_states=1
 
-# NAGIOS PROCESS CHECK COMMAND
-# This is the full path and filename of the program used to check
-# the status of the Nagios process.  It is used only by the CGIs
-# and is completely optional.  However, if you don't use it, you'll
-# see warning messages in the CGIs about the Nagios process
-# not running and you won't be able to execute any commands from
-# the web interface.  The program should follow the same rules
-# as plugins; the return codes are the same as for the plugins,
-# it should have timeout protection, it should output something
-# to STDIO, etc.
-#
-# Note: The command line for the check_nagios plugin below may
-# have to be tweaked a bit, as different versions of the plugin
-# use different command line arguments/syntaxes.
-
-nagios_check_command=/usr/lib/nagios/plugins/check_nagios /var/cache/nagios3/status.dat 5 '/usr/sbin/nagios3'
 
 
 # AUTHENTICATION USAGE
@@ -93,14 +78,12 @@ use_authentication=1
 
 
 
-
 # x509 CERT AUTHENTICATION
 # When enabled, this option allows you to use x509 cert (SSL)
 # authentication in the CGIs.  This is an advanced option and should
 # not be enabled unless you know what you're doing.
 
 use_ssl_authentication=0
-
 
 
 
@@ -167,7 +150,6 @@ authorized_for_system_commands=nagiosadmin
 # you choose to not use authorization). You may use an asterisk (*)
 # to authorize any user who has authenticated to the web server.
 
-
 authorized_for_all_services=nagiosadmin
 authorized_for_all_hosts=nagiosadmin
 
@@ -197,7 +179,6 @@ authorized_for_all_host_commands=nagiosadmin
 
 
 
-
 # STATUSMAP BACKGROUND IMAGE
 # This option allows you to specify an image to be used as a
 # background in the statusmap CGI.  It is assumed that the image
@@ -206,11 +187,10 @@ authorized_for_all_host_commands=nagiosadmin
 # to the path specified by the 'physical_html_path' directive.
 # Note:  The image file may be in GIF, PNG, JPEG, or GD2 format.
 # However, I recommend that you convert your image to GD2 format
-# (uncompressed), as this will cause less CPU load when the CGI
-# generates the image.
+# (uncompressed) but ONLY IF YOU WILL USE THE LEGACY MAP EXCLUSIVELY,
+# as this will cause less CPU load when the CGI generates the image.
 
 #statusmap_background_image=smbackground.gd2
-
 
 
 
@@ -226,20 +206,33 @@ authorized_for_all_host_commands=nagiosadmin
 
 
 
-
 # DEFAULT STATUSMAP LAYOUT METHOD
 # This option allows you to specify the default layout method
 # the statusmap CGI should use for drawing hosts.  If you do
-# not use this option, the default is to use user-defined
-# coordinates.  Valid options are as follows:
+# not use this option, the default for the legacy map is to use
+# user-defined coordinates and the default for the new map is "6"
+# (Circular Balloon).
+# Valid options for the legacy map are as follows:
 #	0 = User-defined coordinates
 #	1 = Depth layers
-#       2 = Collapsed tree
-#       3 = Balanced tree
-#       4 = Circular
-#       5 = Circular (Marked Up)
+#	2 = Collapsed tree
+#	3 = Balanced tree
+#	4 = Circular
+#	5 = Circular (Marked Up)
+# Valid options for the new map are as follows:
+#	0 = User-defined coordinates
+#	1 = Depth Layers (Horizontal)
+#	2 = Collapsed tree (Horizontal)
+#	3 = Balanced tree (Horizontal)
+#	4 = DON'T USE
+#	5 = Circular Markup
+#	6 = Circular Balloon
+#	7 = Balanced tree (Vertical)
+#	8 = Collapsed tree (Vertical)
+#	9 = Depth Layers (Vertical)
+#	10 = Force Map
 
-default_statusmap_layout=5
+#default_statusmap_layout=6
 
 
 
@@ -288,6 +281,8 @@ ping_syntax=/bin/ping -n -U -c 5 $HOSTADDRESS$
 
 refresh_rate={{ nagios_server_cgi.refresh_rate | default(90) }}
 
+
+
 # DEFAULT PAGE LIMIT
 # This option allows you to specify the default number of results
 # displayed on the status.cgi.  This number can be adjusted from
@@ -297,13 +292,13 @@ refresh_rate={{ nagios_server_cgi.refresh_rate | default(90) }}
 result_limit={{ nagios_server_cgi.result_limit | default(100) }}
 
 
+
 # ESCAPE HTML TAGS
 # This option determines whether HTML tags in host and service
 # status output is escaped in the web interface.  If enabled,
 # your plugin output will not be able to contain clickable links.
 
 escape_html_tags=1
-
 
 
 
@@ -342,7 +337,6 @@ notes_url_target=_blank
 
 
 
-
 # LOCK AUTHOR NAMES OPTION
 # This option determines whether users can change the author name
 # when submitting comments, scheduling downtime.  If disabled, the
@@ -351,7 +345,6 @@ notes_url_target=_blank
 #         1 = lock author names (disallow editing)
 
 lock_author_names=1
-
 
 
 
@@ -369,7 +362,36 @@ lock_author_names=1
 
 #enable_splunk_integration=1
 
-
 # This option should be the URL used to access your instance of Splunk
-
 #splunk_url=http://127.0.0.1:8000/
+
+
+
+# NAVIGATION BAR SEARCH OPTIONS
+# The following options allow to configure the navbar search. Default
+# is to search for hostnames. With enabled navbar_search_for_addresses,
+# the navbar search queries IP addresses as well. It's also possible
+# to enable search for aliases by setting navbar_search_for_aliases=1.
+
+navbar_search_for_addresses=1
+navbar_search_for_aliases=1
+
+
+
+# DEFAULTS FOR CHECKBOXES FOR ACKNOWLEDGEMENTS
+# Enabling ack_no_sticky will default the "Sticky Acknowledgement" to
+# be unchecked.
+# Enabling ack_no_send will default the "Send Notification" to
+# be unchecked.
+
+#ack_no_sticky=0
+#ack_no_send=0
+
+
+
+# SHOW ONLY HARD STATES IS TACTICAL OVERVIEW
+# This option controls whether only HARD states are counted on the
+# Tactical Overview, or if both HARD and SOFT states are counted.
+# Set to 1 to show only HARD states. Defaults to 0 (HARD+SOFT).
+
+#tac_cgi_hard_only=0
