@@ -1,0 +1,176 @@
+# tasks file
+---
+- name: configure | apache htdigest users
+  template:
+    src: etc/nagios4/htdigest.users.j2
+    dest: /etc/nagios4/htdigest.users
+    owner: "{{ nagios_server_default_group }}"
+    group: www-data
+    mode: "{{ nagios_server_default_file_mode }}"
+  tags:
+    - nagios-server-configure-apache-htpasswd-users
+
+- name: configure | copy cgi file
+  template:
+    src: etc/nagios4/cgi.cfg.j2
+    dest: /etc/nagios4/cgi.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: 0644
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-cgi-file
+
+#- name: configure | copy commands file
+#  template:
+#    src: etc/nagios4/commands.cfg.j2
+#    dest: /etc/nagios4/commands.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-commands-file
+
+- name: configure | copy resource file
+  template:
+    src: etc/nagios4/resource.cfg.j2
+    dest: /etc/nagios4/resource.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-resource-file
+
+#- name: configure | copy contacts files
+#  template:
+#    src: etc/nagios4/conf.d/contacts_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/contacts_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-contacts-files
+#
+#- name: configure | copy hostextinfo files
+#  template:
+#    src: etc/nagios4/conf.d/extinfo_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/extinfo_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-hostextinfo-files
+#
+#- name: configure | copy hostgroups files
+#  template:
+#    src: etc/nagios4/conf.d/hostgroups_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/hostgroups_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-hostgroups-files
+#
+#- name: configure | copy generic service template file
+#  template:
+#    src: etc/nagios4/conf.d/generic-service_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/generic-service_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-generic-service-template-file
+#
+#- name: configure | copy services files
+#  template:
+#    src: etc/nagios4/conf.d/services_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/services_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-services-files
+#
+#- name: configure | copy timeperiods files
+#  template:
+#    src: etc/nagios4/conf.d/timeperiods_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/timeperiods_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-timeperiods-files
+#
+#- name: configure | copy generic host template file
+#  template:
+#    src: etc/nagios4/conf.d/generic-host_nagios2.cfg.j2
+#    dest: /etc/nagios4/conf.d/generic-host_nagios2.cfg
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-generic-host-template-file
+#
+#- name: configure | copy host files
+#  template:
+#    src: etc/nagios4/conf.d/hostname_nagios2.cfg.j2
+#    dest: "/etc/nagios4/conf.d/{{ item.name }}_nagios2.cfg"
+#    owner: "{{ nagios_server_default_owner }}"
+#    group: "{{ nagios_server_default_group }}"
+#    mode: "{{ nagios_server_default_file_mode }}"
+#  with_items: "{{ nagios_server_hosts }}"
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-copy-host-files
+#
+#- block:
+#
+#    - name: configure | set command dir permissions
+#      file:
+#        path: /var/lib/nagios4/rw
+#        state: directory
+#        mode: 'g+x'
+#        # Needed for www-data to access this directory
+#    - name: configure | add www-data user to nagios group
+#      user:
+#        name: www-data
+#        groups: "{{ nagios_server_default_group }}"
+#        append: true
+#    - name: configure | check external commands option
+#      lineinfile:
+#        path: "{{ nagios_server_etc_nagios4_nagios_file }}"
+#        regexp: '^check_external_commands='
+#        line: check_external_commands=1
+#      notify: reload nagios-server
+#
+#  when: nagios_server_check_external_commands | bool
+#  tags:
+#    - nagios-server-configure-check-external-commands
+#
+#- name: configure | regular expression matching option
+#  lineinfile:
+#    path: "{{ nagios_server_etc_nagios4_nagios_file }}"
+#    regexp: '^use_regexp_matching='
+#    line: use_regexp_matching=1
+#  when: nagios_server_use_regexp_matching | bool
+#  notify: reload nagios-server
+#  tags:
+#    - nagios-server-configure-use-regexp-matching
+
+- name: configure | remove paths
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ nagios_server_absent_paths }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-remove

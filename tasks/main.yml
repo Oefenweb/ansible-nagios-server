@@ -23,11 +23,16 @@
     - nagios-server
     - nagios-server-private-keys
 
-#- include: configure.yml
-#  tags:
-#    - configuration
-#    - nagios-server
-#    - nagios-server-configure
+- block:
+    - include: configure-3.yml
+      when: nagios_server_major_version is version('3', '=')
+
+    - include: configure-4.yml
+      when: nagios_server_major_version is version('4', '=')
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-configure
 
 - name: start and enable service
   service:
