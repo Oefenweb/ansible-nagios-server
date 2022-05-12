@@ -2,6 +2,6 @@
 ---
 - name: reload nagios-server
   service:
-    name: nagios3
+    name: "nagios{{ nagios_server_major_version }}"
     state: reloaded
   when: service_default_state | default('started') == 'started'

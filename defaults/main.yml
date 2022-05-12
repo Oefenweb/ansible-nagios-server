@@ -5,7 +5,7 @@ nagios_server_htpasswd_users: []
 nagios_server_private_keys: []
 
 nagios_server_install:
-  - nagios3
+  - "nagios{{ nagios_server_major_version }}"
   # Required for the htpasswd Ansible module
   - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-passlib"
 

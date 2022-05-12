@@ -1,0 +1,30 @@
+{{ ansible_managed | comment }}
+# generic service template definition
+define service{
+	name                            {{ nagios_server_generic_service.name | default('generic-service') }}
+	active_checks_enabled           {{ nagios_server_generic_service.active_checks_enabled | default(1) }}
+	passive_checks_enabled          {{ nagios_server_generic_service.passive_checks_enabled | default(1) }}
+	parallelize_check               {{ nagios_server_generic_service.parallelize_check | default(1) }}
+	obsess_over_service             {{ nagios_server_generic_service.obsess_over_service | default(1) }}
+	check_freshness                 {{ nagios_server_generic_service.check_freshness | default(0) }}
+	notifications_enabled           {{ nagios_server_generic_service.notifications_enabled | default(1) }}
+	event_handler_enabled           {{ nagios_server_generic_service.event_handler_enabled | default(1) }}
+	flap_detection_enabled          {{ nagios_server_generic_service.flap_detection_enabled | default(1) }}
+	failure_prediction_enabled      {{ nagios_server_generic_service.failure_prediction_enabled | default(1) }}
+	process_perf_data               {{ nagios_server_generic_service.process_perf_data | default(1) }}
+	retain_status_information       {{ nagios_server_generic_service.retain_status_information | default(1) }}
+	retain_nonstatus_information    {{ nagios_server_generic_service.retain_nonstatus_information | default(1) }}
+	notification_interval           {{ nagios_server_generic_service.notification_interval | default(0) }}
+	is_volatile                     {{ nagios_server_generic_service.is_volatile | default(0) }}
+	check_period                    {{ nagios_server_generic_service.check_period | default('24x7') }}
+	normal_check_interval           {{ nagios_server_generic_service.normal_check_interval | default(5) }}
+	retry_check_interval            {{ nagios_server_generic_service.retry_check_interval | default(1) }}
+	max_check_attempts              {{ nagios_server_generic_service.max_check_attempts | default(4) }}
+	notification_period             {{ nagios_server_generic_service.notification_period | default('24x7') }}
+	notification_options            {{ nagios_server_generic_service.notification_options | default('w,u,c,r') }}
+	contact_groups                  {{ nagios_server_generic_service.contact_groups | default('admins') }}
+{% if nagios_server_generic_service.action_url is defined %}
+    action_url                      {{ nagios_server_generic_service.action_url }}
+{% endif %}
+	register                        {{ nagios_server_generic_service.register | default(0) }}
+}

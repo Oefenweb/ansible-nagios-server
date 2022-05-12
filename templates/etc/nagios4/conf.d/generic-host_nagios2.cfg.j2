@@ -1,0 +1,46 @@
+{{ ansible_managed | comment }}
+# Generic host definition template - This is NOT a real host, just a template!
+
+define host{
+	name                            generic-host    ; The name of this host template
+	notifications_enabled           1       ; Host notifications are enabled
+	event_handler_enabled           1       ; Host event handler is enabled
+	flap_detection_enabled          1       ; Flap detection is enabled
+	failure_prediction_enabled      1       ; Failure prediction is enabled
+	process_perf_data               1       ; Process performance data
+	retain_status_information       1       ; Retain status information across program restarts
+	retain_nonstatus_information    1       ; Retain non-status information across program restarts
+	check_command                   check-host-alive
+	max_check_attempts              10
+	notification_interval           0
+	notification_period             24x7
+	notification_options            d,u,r
+	contact_groups                  admins
+	register                        0       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL HOST, JUST A TEMPLATE!
+}
+
+{% for host_template in nagios_server_host_templates | default([]) %}
+define host{
+        name                            {{ host_template.name }}    ; The name of this host template
+        notifications_enabled           {{ host_template.notifications_enabled | default(1) }}       ; Host notifications are enabled
+        event_handler_enabled           {{ host_template.event_handler_enabled | default(1) }}       ; Host event handler is enabled
+        flap_detection_enabled          {{ host_template.flap_detection_enabled | default(1) }}       ; Flap detection is enabled
+        failure_prediction_enabled      {{ host_template.failure_prediction_enabled | default(1) }}       ; Failure prediction is enabled
+        process_perf_data               {{ host_template.process_perf_data | default(1) }}       ; Process performance data
+        retain_status_information       {{ host_template.retain_status_information | default(1) }}       ; Retain status information across program restarts
+        retain_nonstatus_information    {{ host_template.retain_nonstatus_information | default(1) }}       ; Retain non-status information across program restarts
+        check_command                   {{ host_template.check_command | default('check-host-alive') }}
+        max_check_attempts              {{ host_template.max_check_attempts | default(10) }}
+        notification_interval           {{ host_template.notification_interval | default(0) }}
+        notification_period             {{ host_template.notification_period | default('24x7') }}
+        notification_options            {{ host_template.notification_options | default('d,u,r') }}
+        contact_groups                  {{ host_template.contact_groups | default('admins') }}
+        register                        {{ host_template.register | default(0) }}       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL HOST, JUST A TEMPLATE!
+ {% for host_template_variable in host_template.variables | default([]) %}
+      {{ host_template_variable.name }} {{ host_template_variable.value }}
+ {% endfor %}
+
+}
+
+{% endfor %}
+

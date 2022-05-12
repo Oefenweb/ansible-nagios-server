@@ -1,0 +1,11 @@
+{{ ansible_managed | comment }}
+{% for service in nagios_server_services %}
+define service {
+	hostgroup_name                  {{ service.hostgroup }}
+	service_description             {{ service.description }}
+	check_command                   {{ service.check_command }}
+	use                             {{ service.use | default('generic-service') }}
+	notification_interval           {{ service.notification_interval | default(0) }} ; set > 0 if you want to be renotified
+}
+
+{% endfor %}
