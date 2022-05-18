@@ -1,0 +1,46 @@
+{{ ansible_managed | comment }}
+################################################################################
+# NOTIFICATION COMMANDS
+################################################################################
+
+
+{% for command in nagios_server_commands_notification %}
+define command{
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
+{% endfor %}
+
+
+
+
+
+################################################################################
+# HOST CHECK COMMANDS
+################################################################################
+
+# On Debian, check-host-alive is being defined from within the
+# nagios-plugins-basic package
+
+################################################################################
+# PERFORMANCE DATA COMMANDS
+################################################################################
+
+
+{% for command in nagios_server_commands_performance_data %}
+define command{
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
+{% endfor %}
+
+#
+# Custom commands
+#
+
+{% for command in nagios_server_commands_custom %}
+define command{
+	command_name	{{ command.name }}
+	command_line	{{ command.line }}
+}
+{% endfor %}

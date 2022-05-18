@@ -10,6 +10,17 @@
   tags:
     - nagios-server-configure-apache-htpasswd-users
 
+- name: configure | copy apache2 file
+  template:
+    src: etc/nagios4/apache2.conf.j2
+    dest: /etc/nagios4/apache2.conf
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: 0644
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-apache-file
+
 - name: configure | copy cgi file
   template:
     src: etc/nagios4/cgi.cfg.j2
@@ -20,17 +31,6 @@
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-cgi-file
-
-#- name: configure | copy commands file
-#  template:
-#    src: etc/nagios4/commands.cfg.j2
-#    dest: /etc/nagios4/commands.cfg
-#    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
-#    mode: "{{ nagios_server_default_file_mode }}"
-#  notify: reload nagios-server
-#  tags:
-#    - nagios-server-configure-copy-commands-file
 
 - name: configure | copy resource file
   template:
@@ -43,17 +43,28 @@
   tags:
     - nagios-server-configure-copy-resource-file
 
-#- name: configure | copy contacts files
-#  template:
-#    src: etc/nagios4/conf.d/contacts_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/contacts_nagios2.cfg
-#    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
-#    mode: "{{ nagios_server_default_file_mode }}"
-#  notify: reload nagios-server
-#  tags:
-#    - nagios-server-configure-copy-contacts-files
-#
+- name: configure | copy contacts files
+  template:
+    src: etc/nagios4/objects/contacts.cfg.j2
+    dest: /etc/nagios4/objects/contacts.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-contacts-files
+
+- name: configure | copy commands file
+  template:
+    src: etc/nagios4/objects/commands.cfg.j2
+    dest: /etc/nagios4/objects/commands.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-commands-file
+
 #- name: configure | copy hostextinfo files
 #  template:
 #    src: etc/nagios4/conf.d/extinfo_nagios2.cfg.j2

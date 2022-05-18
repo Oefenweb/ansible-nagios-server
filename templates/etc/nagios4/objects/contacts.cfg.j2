@@ -1,0 +1,44 @@
+{{ ansible_managed | comment }}
+###############################################################################
+###############################################################################
+#
+# CONTACTS
+#
+###############################################################################
+###############################################################################
+
+
+{% for item in nagios_server_contacts %}
+
+define contact{
+	contact_name                    {{ item.name }}
+	alias                           {{ item.alias }}
+	service_notification_period     {{ item.service_notification_period | default('24x7') }}
+	host_notification_period        {{ item.host_notification_period | default('24x7') }}
+	service_notification_options    {{ item.service_notification_options | default('w,u,c,r') }}
+	host_notification_options       {{ item.host_notification_options | default('d,r') }}
+	service_notification_commands   {{ item.service_notification_command }}
+	host_notification_commands      {{ item.host_notification_command }}
+{% if item.email | default(false) %}
+	email                           {{ item.email }}
+{% endif %}
+}
+
+{% endfor %}
+
+###############################################################################
+###############################################################################
+#
+# CONTACT GROUPS
+#
+###############################################################################
+###############################################################################
+
+{% for contactgroup in nagios_server_contactgroups %}
+
+define contactgroup{
+	contactgroup_name       {{ contactgroup.name }}
+	alias                   {{ contactgroup.alias }}
+	members                 {{ contactgroup.members | join(', ') }}
+}
+{% endfor %}

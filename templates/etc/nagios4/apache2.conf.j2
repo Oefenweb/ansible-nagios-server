@@ -1,0 +1,35 @@
+{{ ansible_managed | comment }}
+ScriptAlias /cgi-bin/nagios4 /usr/lib/cgi-bin/nagios4
+ScriptAlias /nagios4/cgi-bin /usr/lib/cgi-bin/nagios4
+
+# Where the stylesheets (config files) reside
+Alias /nagios4/stylesheets /etc/nagios4/stylesheets
+
+# Where the HTML pages live
+Alias /nagios4 /usr/share/nagios4/htdocs
+
+<DirectoryMatch (/usr/share/nagios4/htdocs|/usr/lib/cgi-bin/nagios4|/etc/nagios4/stylesheets)>
+    Options FollowSymLinks
+    DirectoryIndex index.php index.html
+    AllowOverride AuthConfig
+
+    <IfVersion < 2.3>
+        Order Allow,Deny
+        Allow From All
+    </IfVersion>
+
+    <IfVersion >= 2.3>
+        Require all denied
+    </IfVersion>
+
+    AuthDigestDomain "Nagios4"
+    AuthDigestProvider file
+    AuthUserFile "/etc/nagios4/htdigest.users"
+    AuthName "Nagios4"
+    AuthType Digest
+    Require valid-user
+</DirectoryMatch>
+
+<Directory /usr/share/nagios4/htdocs>
+    Options +ExecCGI
+</Directory>
