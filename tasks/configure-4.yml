@@ -67,10 +67,10 @@
 
 #- name: configure | copy hostextinfo files
 #  template:
-#    src: etc/nagios4/conf.d/extinfo_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/extinfo_nagios2.cfg
+#    src: etc/nagios4/objects/extinfo.cfp.j2
+#    dest: /etc/nagios4/objects/extinfo.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -78,10 +78,10 @@
 #
 #- name: configure | copy hostgroups files
 #  template:
-#    src: etc/nagios4/conf.d/hostgroups_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/hostgroups_nagios2.cfg
+#    src: etc/nagios4/objects/hostgroups.cfp.j2
+#    dest: /etc/nagios4/objects/hostgroups.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -89,10 +89,10 @@
 #
 #- name: configure | copy generic service template file
 #  template:
-#    src: etc/nagios4/conf.d/generic-service_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/generic-service_nagios2.cfg
+#    src: etc/nagios4/objects/generic-service.cfp.j2
+#    dest: /etc/nagios4/objects/generic-service.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -100,10 +100,10 @@
 #
 #- name: configure | copy services files
 #  template:
-#    src: etc/nagios4/conf.d/services_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/services_nagios2.cfg
+#    src: etc/nagios4/objects/services.cfp.j2
+#    dest: /etc/nagios4/objects/services.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -111,10 +111,10 @@
 #
 #- name: configure | copy timeperiods files
 #  template:
-#    src: etc/nagios4/conf.d/timeperiods_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/timeperiods_nagios2.cfg
+#    src: etc/nagios4/objects/timeperiods.cfp.j2
+#    dest: /etc/nagios4/objects/timeperiods.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -122,10 +122,10 @@
 #
 #- name: configure | copy generic host template file
 #  template:
-#    src: etc/nagios4/conf.d/generic-host_nagios2.cfg.j2
-#    dest: /etc/nagios4/conf.d/generic-host_nagios2.cfg
+#    src: etc/nagios4/objects/generic-host.cfp.j2
+#    dest: /etc/nagios4/objects/generic-host.cfp
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  notify: reload nagios-server
 #  tags:
@@ -133,10 +133,10 @@
 #
 #- name: configure | copy host files
 #  template:
-#    src: etc/nagios4/conf.d/hostname_nagios2.cfg.j2
-#    dest: "/etc/nagios4/conf.d/{{ item.name }}_nagios2.cfg"
+#    src: etc/nagios4/objects/hostname.cfp.j2
+#    dest: "/etc/nagios4/objects/{{ item.name }}.cfp"
 #    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_group }}"
+#    group: "{{ nagios_server_default_owner }}"
 #    mode: "{{ nagios_server_default_file_mode }}"
 #  with_items: "{{ nagios_server_hosts }}"
 #  notify: reload nagios-server
