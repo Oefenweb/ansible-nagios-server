@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: configure | apache htpasswd users
-  htpasswd:
+  community.general.htpasswd:
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
@@ -11,7 +11,7 @@
     - nagios-server-configure-apache-htpasswd-users
 
 - name: configure | copy cgi file
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/cgi.cfg.j2
     dest: /etc/nagios3/cgi.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -23,7 +23,7 @@
     - nagios-server-configure-copy-cgi-file
 
 - name: configure | copy commands file
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/commands.cfg.j2
     dest: /etc/nagios3/commands.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -34,7 +34,7 @@
     - nagios-server-configure-copy-commands-file
 
 - name: configure | copy resource file
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/resource.cfg.j2
     dest: /etc/nagios3/resource.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -45,7 +45,7 @@
     - nagios-server-configure-copy-resource-file
 
 - name: configure | copy contacts files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/contacts_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/contacts_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -56,7 +56,7 @@
     - nagios-server-configure-copy-contacts-files
 
 - name: configure | copy hostextinfo files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/extinfo_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/extinfo_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -67,7 +67,7 @@
     - nagios-server-configure-copy-hostextinfo-files
 
 - name: configure | copy hostgroups files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/hostgroups_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/hostgroups_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -78,7 +78,7 @@
     - nagios-server-configure-copy-hostgroups-files
 
 - name: configure | copy generic service template file
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/generic-service_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/generic-service_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -89,7 +89,7 @@
     - nagios-server-configure-copy-generic-service-template-file
 
 - name: configure | copy services files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/services_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/services_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -100,7 +100,7 @@
     - nagios-server-configure-copy-services-files
 
 - name: configure | copy timeperiods files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/timeperiods_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/timeperiods_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -111,7 +111,7 @@
     - nagios-server-configure-copy-timeperiods-files
 
 - name: configure | copy generic host template file
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/generic-host_nagios2.cfg.j2
     dest: /etc/nagios3/conf.d/generic-host_nagios2.cfg
     owner: "{{ nagios_server_default_owner }}"
@@ -122,7 +122,7 @@
     - nagios-server-configure-copy-generic-host-template-file
 
 - name: configure | copy host files
-  template:
+  ansible.builtin.template:
     src: etc/nagios3/conf.d/hostname_nagios2.cfg.j2
     dest: "/etc/nagios3/conf.d/{{ item.name }}_nagios2.cfg"
     owner: "{{ nagios_server_default_owner }}"
@@ -133,21 +133,22 @@
   tags:
     - nagios-server-configure-copy-host-files
 
-- block:
+- name: configure | check external commands
+  block:
 
     - name: configure | set command dir permissions
-      file:
+      ansible.builtin.file:
         path: /var/lib/nagios3/rw
         state: directory
         mode: 'g+x'
         # Needed for www-data to access this directory
     - name: configure | add www-data user to nagios group
-      user:
+      ansible.builtin.user:
         name: www-data
         groups: "{{ nagios_server_default_group }}"
         append: true
     - name: configure | check external commands option
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: "{{ nagios_server_etc_nagios3_nagios_file }}"
         regexp: '^check_external_commands='
         line: check_external_commands=1
@@ -158,7 +159,7 @@
     - nagios-server-configure-check-external-commands
 
 - name: configure | regular expression matching option
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ nagios_server_etc_nagios3_nagios_file }}"
     regexp: '^use_regexp_matching='
     line: use_regexp_matching=1
@@ -168,7 +169,7 @@
     - nagios-server-configure-use-regexp-matching
 
 - name: configure | remove paths
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: absent
   with_items: "{{ nagios_server_absent_paths }}"
