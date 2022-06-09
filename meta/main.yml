@@ -1,9 +1,8 @@
 # meta file
 ---
 galaxy_info:
-  namespace: oefenweb
+  author: oefenweb
   role_name: nagios_server
-  author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up nagios in Debian-like systems (server side)
   license: MIT
