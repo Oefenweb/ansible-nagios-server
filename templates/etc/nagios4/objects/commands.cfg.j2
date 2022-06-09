@@ -3,17 +3,12 @@
 # NOTIFICATION COMMANDS
 ################################################################################
 
-
 {% for command in nagios_server_commands_notification %}
 define command{
-	command_name	{{ command.name }}
-	command_line	{{ command.line }}
+  command_name  {{ command.name }}
+  command_line  {{ command.line }}
 }
 {% endfor %}
-
-
-
-
 
 ################################################################################
 # HOST CHECK COMMANDS
@@ -26,21 +21,20 @@ define command{
 # PERFORMANCE DATA COMMANDS
 ################################################################################
 
-
 {% for command in nagios_server_commands_performance_data %}
 define command{
-	command_name	{{ command.name }}
-	command_line	{{ command.line }}
+  command_name  {{ command.name }}
+  command_line  {{ command.line }}
 }
 {% endfor %}
 
-#
-# Custom commands
-#
+################################################################################
+# CUSTOM DATA COMMANDS
+################################################################################
 
 {% for command in nagios_server_commands_custom %}
 define command{
-	command_name	{{ command.name }}
-	command_line	{{ command.line }}
+  command_name  {{ command.name }}
+  command_line  {{ command.line }}
 }
 {% endfor %}

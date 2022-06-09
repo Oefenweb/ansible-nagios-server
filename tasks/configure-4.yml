@@ -65,49 +65,16 @@
   tags:
     - nagios-server-configure-copy-commands-file
 
-#- name: configure | copy hostextinfo files
-#  template:
-#    src: etc/nagios4/objects/extinfo.cfg.j2
-#    dest: /etc/nagios4/objects/extinfo.cfg
-#    owner: "{{ nagios_server_default_owner }}"
-#    group: "{{ nagios_server_default_owner }}"
-#    mode: "{{ nagios_server_default_file_mode }}"
-#  notify: reload nagios-server
-#  tags:
-#    - nagios-server-configure-copy-hostextinfo-files
-#
-- name: configure | copy hostgroups files
+- name: configure | copy templates file
   template:
-    src: etc/nagios4/objects/hostgroups.cfg.j2
-    dest: /etc/nagios4/objects/hostgroups.cfg
+    src: etc/nagios4/objects/templates.cfg.j2
+    dest: /etc/nagios4/objects/templates.cfg
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configure-copy-hostgroups-files
-
-- name: configure | copy generic service template file
-  template:
-    src: etc/nagios4/objects/generic-service.cfg.j2
-    dest: /etc/nagios4/objects/generic-service.cfg
-    owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
-    mode: "{{ nagios_server_default_file_mode }}"
-  notify: reload nagios-server
-  tags:
-    - nagios-server-configure-copy-generic-service-template-file
-
-- name: configure | copy services files
-  template:
-    src: etc/nagios4/objects/services.cfg.j2
-    dest: /etc/nagios4/objects/services.cfg
-    owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
-    mode: "{{ nagios_server_default_file_mode }}"
-  notify: reload nagios-server
-  tags:
-    - nagios-server-configure-copy-services-files
+    - nagios-server-configure-copy-templates-file
 
 - name: configure | copy timeperiods files
   template:
@@ -120,21 +87,32 @@
   tags:
     - nagios-server-configure-copy-timeperiods-files
 
-- name: configure | copy generic host template file
+- name: configure | copy hostextinfo files
   template:
-    src: etc/nagios4/objects/generic-host.cfg.j2
-    dest: /etc/nagios4/objects/generic-host.cfg
+    src: etc/nagios4/conf.d/extinfo.cfg.j2
+    dest: /etc/nagios4/conf.d/extinfo.cfg
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
-    - nagios-server-configure-copy-generic-host-template-file
+    - nagios-server-configure-copy-hostextinfo-files
+
+- name: configure | copy hostgroups files
+  template:
+    src: etc/nagios4/conf.d/hostgroups.cfg.j2
+    dest: /etc/nagios4/conf.d/hostgroups.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-hostgroups-files
 
 - name: configure | copy host files
   template:
-    src: etc/nagios4/objects/hostname.cfg.j2
-    dest: "/etc/nagios4/objects/{{ item.name }}.cfg"
+    src: etc/nagios4/conf.d/hostname.cfg.j2
+    dest: "/etc/nagios4/conf.d/{{ item.name }}.cfg"
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
     mode: "{{ nagios_server_default_file_mode }}"
@@ -143,39 +121,50 @@
   tags:
     - nagios-server-configure-copy-host-files
 
-#- block:
-#
-#    - name: configure | set command dir permissions
-#      file:
-#        path: /var/lib/nagios4/rw
-#        state: directory
-#        mode: 'g+x'
-#        # Needed for www-data to access this directory
-#    - name: configure | add www-data user to nagios group
-#      user:
-#        name: www-data
-#        groups: "{{ nagios_server_default_group }}"
-#        append: true
-#    - name: configure | check external commands option
-#      lineinfile:
-#        path: "{{ nagios_server_etc_nagios4_nagios_file }}"
-#        regexp: '^check_external_commands='
-#        line: check_external_commands=1
-#      notify: reload nagios-server
-#
-#  when: nagios_server_check_external_commands | bool
-#  tags:
-#    - nagios-server-configure-check-external-commands
-#
-#- name: configure | regular expression matching option
-#  lineinfile:
-#    path: "{{ nagios_server_etc_nagios4_nagios_file }}"
-#    regexp: '^use_regexp_matching='
-#    line: use_regexp_matching=1
-#  when: nagios_server_use_regexp_matching | bool
-#  notify: reload nagios-server
-#  tags:
-#    - nagios-server-configure-use-regexp-matching
+- name: configure | copy services files
+  template:
+    src: etc/nagios4/conf.d/services.cfg.j2
+    dest: /etc/nagios4/conf.d/services.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-services-files
+
+- block:
+
+    - name: configure | set command dir permissions
+      file:
+        path: /var/lib/nagios4/rw
+        state: directory
+        mode: 'g+x'
+        # Needed for www-data to access this directory
+    - name: configure | add www-data user to nagios group
+      user:
+        name: www-data
+        groups: "{{ nagios_server_default_group }}"
+        append: true
+    - name: configure | check external commands option
+      lineinfile:
+        path: "{{ nagios_server_etc_nagios4_nagios_file }}"
+        regexp: '^check_external_commands='
+        line: check_external_commands=1
+      notify: reload nagios-server
+
+  when: nagios_server_check_external_commands | bool
+  tags:
+    - nagios-server-configure-check-external-commands
+
+- name: configure | regular expression matching option
+  lineinfile:
+    path: "{{ nagios_server_etc_nagios4_nagios_file }}"
+    regexp: '^use_regexp_matching='
+    line: use_regexp_matching=1
+  when: nagios_server_use_regexp_matching | bool
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-use-regexp-matching
 
 - name: configure | remove paths
   file:
