@@ -56,7 +56,17 @@
   tags:
     - configuration
     - nagios-server
-    - nagios-server-start-enable-service
+    - nagios-server-debug
+
+- name: debug
+  ansible.builtin.shell: >
+    ls -lhaR /etc/nagios*/
+  changed_when: false
+  failed_when: false
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-debug
 
 - name: debug
   ansible.builtin.shell: >
@@ -66,4 +76,4 @@
   tags:
     - configuration
     - nagios-server
-    - nagios-server-start-enable-service
+    - nagios-server-debug
