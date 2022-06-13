@@ -4,9 +4,9 @@
   ansible.builtin.template:
     src: etc/nagios4/htdigest.users.j2
     dest: /etc/nagios4/htdigest.users
-    owner: "{{ nagios_server_default_group }}"
-    group: www-data
-    mode: "{{ nagios_server_default_file_mode }}"
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_owner }}"
+    mode: 0644
   tags:
     - nagios-server-configure-apache-htpasswd-users
 
@@ -26,7 +26,8 @@
     src: etc/nagios4/cgi.cfg.j2
     dest: /etc/nagios4/cgi.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    # Needed for www-data to read this file
     mode: 0644
   notify: reload nagios-server
   tags:
@@ -48,7 +49,7 @@
     src: etc/nagios4/objects/contacts.cfg.j2
     dest: /etc/nagios4/objects/contacts.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -59,7 +60,7 @@
     src: etc/nagios4/objects/commands.cfg.j2
     dest: /etc/nagios4/objects/commands.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -70,7 +71,7 @@
     src: etc/nagios4/objects/templates.cfg.j2
     dest: /etc/nagios4/objects/templates.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -81,7 +82,7 @@
     src: etc/nagios4/objects/timeperiods.cfg.j2
     dest: /etc/nagios4/objects/timeperiods.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -92,7 +93,7 @@
     src: etc/nagios4/conf.d/extinfo.cfg.j2
     dest: /etc/nagios4/conf.d/extinfo.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -103,7 +104,7 @@
     src: etc/nagios4/conf.d/hostgroups.cfg.j2
     dest: /etc/nagios4/conf.d/hostgroups.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
@@ -114,7 +115,7 @@
     src: etc/nagios4/conf.d/hostname.cfg.j2
     dest: "/etc/nagios4/conf.d/{{ item.name }}.cfg"
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   with_items: "{{ nagios_server_hosts }}"
   notify: reload nagios-server
@@ -126,7 +127,7 @@
     src: etc/nagios4/conf.d/services.cfg.j2
     dest: /etc/nagios4/conf.d/services.cfg
     owner: "{{ nagios_server_default_owner }}"
-    group: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
     mode: "{{ nagios_server_default_file_mode }}"
   notify: reload nagios-server
   tags:
