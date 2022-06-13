@@ -42,38 +42,7 @@
     name: "nagios{{ nagios_server_major_version }}"
     state: "{{ service_default_state | default('started') }}"
     enabled: "{{ service_default_enabled | default(true) | bool }}"
-  failed_when: false
   tags:
     - configuration
     - nagios-server
     - nagios-server-start-enable-service
-
-- name: debug
-  ansible.builtin.shell: >
-    tail -n 50 /var/log/nagios4/nagios.log
-  changed_when: false
-  failed_when: false
-  tags:
-    - configuration
-    - nagios-server
-    - nagios-server-debug
-
-- name: debug
-  ansible.builtin.shell: >
-    ls -lhaR /etc/nagios*/
-  changed_when: false
-  failed_when: false
-  tags:
-    - configuration
-    - nagios-server
-    - nagios-server-debug
-
-- name: debug
-  ansible.builtin.shell: >
-    journalctl -xe
-  changed_when: false
-  failed_when: false
-  tags:
-    - configuration
-    - nagios-server
-    - nagios-server-debug
