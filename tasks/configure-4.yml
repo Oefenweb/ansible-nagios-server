@@ -110,6 +110,17 @@
   tags:
     - nagios-server-configure-copy-hostgroups-files
 
+- name: configure | copy localhost files
+  ansible.builtin.template:
+    src: etc/nagios4/objects/localhost.cfg.j2
+    dest: /etc/nagios4/objects/localhost.cfg
+    owner: "{{ nagios_server_default_owner }}"
+    group: "{{ nagios_server_default_group }}"
+    mode: "{{ nagios_server_default_file_mode }}"
+  notify: reload nagios-server
+  tags:
+    - nagios-server-configure-copy-localhost-files
+
 - name: configure | copy host files
   ansible.builtin.template:
     src: etc/nagios4/conf.d/hostname.cfg.j2

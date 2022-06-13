@@ -24,12 +24,12 @@
 # Generic contact definition template - This is NOT a real contact, just a template!
 
 define contact{
-  name                           generic-contact         ; The name of this contact template
-  service_notification_period    24x7                    ; service notifications can be sent anytime
-  host_notification_period       24x7                    ; host notifications can be sent anytime
-  service_notification_options   w,u,c,r                 ; send notifications for all service states, flapping events, and scheduled downtime events
-  host_notification_options      d,r                     ; send notifications for all host states, flapping events, and scheduled downtime events
-  register                       0                       ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL CONTACT, JUST A TEMPLATE!
+  name                           generic-contact ; The name of this contact template
+  service_notification_period    24x7            ; service notifications can be sent anytime
+  host_notification_period       24x7            ; host notifications can be sent anytime
+  service_notification_options   w,u,c,r         ; send notifications for all service states, flapping events, and scheduled downtime events
+  host_notification_options      d,r             ; send notifications for all host states, flapping events, and scheduled downtime events
+  register                       0               ; DONT REGISTER THIS DEFINITION - ITS NOT A REAL CONTACT, JUST A TEMPLATE!
 }
 
 ###############################################################################
