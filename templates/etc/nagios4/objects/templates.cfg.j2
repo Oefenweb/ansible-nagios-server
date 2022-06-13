@@ -47,7 +47,6 @@ define host{
   notifications_enabled         1                ; Host notifications are enabled
   event_handler_enabled         1                ; Host event handler is enabled
   flap_detection_enabled        1                ; Flap detection is enabled
-  failure_prediction_enabled    1                ; Failure prediction is enabled
   process_perf_data             1                ; Process performance data
   retain_status_information     1                ; Retain status information across program restarts
   retain_nonstatus_information  1                ; Retain non-status information across program restarts
@@ -66,7 +65,6 @@ define host{
   notifications_enabled             {{ host_template.notifications_enabled | default(1) }}          ; Host notifications are enabled
   event_handler_enabled             {{ host_template.event_handler_enabled | default(1) }}          ; Host event handler is enabled
   flap_detection_enabled            {{ host_template.flap_detection_enabled | default(1) }}         ; Flap detection is enabled
-  failure_prediction_enabled        {{ host_template.failure_prediction_enabled | default(1) }}      ; Failure prediction is enabled
   process_perf_data                 {{ host_template.process_perf_data | default(1) }}              ; Process performance data
   retain_status_information         {{ host_template.retain_status_information | default(1) }}      ; Retain status information across program restarts
   retain_nonstatus_information      {{ host_template.retain_nonstatus_information | default(1) }}   ; Retain non-status information across program restarts
@@ -105,15 +103,14 @@ define service{
   notifications_enabled         {{ nagios_server_generic_service.notifications_enabled | default(1) }}
   event_handler_enabled         {{ nagios_server_generic_service.event_handler_enabled | default(1) }}
   flap_detection_enabled        {{ nagios_server_generic_service.flap_detection_enabled | default(1) }}
-  failure_prediction_enabled    {{ nagios_server_generic_service.failure_prediction_enabled | default(1) }}
   process_perf_data             {{ nagios_server_generic_service.process_perf_data | default(1) }}
   retain_status_information     {{ nagios_server_generic_service.retain_status_information | default(1) }}
   retain_nonstatus_information  {{ nagios_server_generic_service.retain_nonstatus_information | default(1) }}
   notification_interval         {{ nagios_server_generic_service.notification_interval | default(0) }}
   is_volatile                   {{ nagios_server_generic_service.is_volatile | default(0) }}
   check_period                  {{ nagios_server_generic_service.check_period | default('24x7') }}
-  normal_check_interval         {{ nagios_server_generic_service.normal_check_interval | default(5) }}
-  retry_check_interval          {{ nagios_server_generic_service.retry_check_interval | default(1) }}
+  check_interval                {{ nagios_server_generic_service.normal_check_interval | default(5) }}
+  retry_interval                {{ nagios_server_generic_service.retry_check_interval | default(1) }}
   max_check_attempts            {{ nagios_server_generic_service.max_check_attempts | default(4) }}
   notification_period           {{ nagios_server_generic_service.notification_period | default('24x7') }}
   notification_options          {{ nagios_server_generic_service.notification_options | default('w,u,c,r') }}
