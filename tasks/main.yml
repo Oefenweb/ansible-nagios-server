@@ -1,26 +1,45 @@
 # tasks file
 ---
-- include: install.yml
+- name: include variables
+  ansible.builtin.include_vars: "{{ item }}"
+  with_first_found:
+    - "_{{ ansible_distribution_release }}.yml"
+    - "_{{ ansible_distribution | lower }}.yml"
+    - _default.yml
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-include-variables
+
+- ansible.builtin.import_tasks: install.yml
   tags:
     - configuration
     - nagios-server
     - nagios-server-install
 
-- include: private-keys.yml
+- ansible.builtin.import_tasks: private-keys.yml
   tags:
     - configuration
     - nagios-server
     - nagios-server-private-keys
 
-- include: configure.yml
+- name: configure
+  block:
+    - name: >
+      ansible.builtin.include_tasks: configure-3.yml
+      when: nagios_server_major_version is version('3', '=')
+
+    - name: >
+      ansible.builtin.include_tasks: configure-4.yml
+      when: nagios_server_major_version is version('4', '=')
   tags:
     - configuration
     - nagios-server
     - nagios-server-configure
 
 - name: start and enable service
-  service:
-    name: nagios3
+  ansible.builtin.service:
+    name: "nagios{{ nagios_server_major_version }}"
     state: "{{ service_default_state | default('started') }}"
     enabled: "{{ service_default_enabled | default(true) | bool }}"
   tags:

@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: private keys | create ssh directory
-  file:
+  ansible.builtin.file:
     path: "~{{ item.owner | default('nagios') }}/.ssh"
     state: directory
     owner: "{{ item.owner | default('nagios') }}"
@@ -13,7 +13,7 @@
     - nagios-server-private-keys-create-ssh-directory
 
 - name: private keys | add
-  copy:
+  ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "~{{ item.owner | default('nagios') }}/.ssh/{{ item.dest | default(item.src | basename) }}"
     owner: "{{ item.owner | default('nagios') }}"
@@ -25,7 +25,7 @@
     - nagios-server-private-keys-add
 
 - name: private keys | remove
-  file:
+  ansible.builtin.file:
     path: "~{{ item.owner }}/.ssh/{{ item.dest | default(item.src | basename) }}"
     state: absent
   with_items: "{{ nagios_server_private_keys }}"

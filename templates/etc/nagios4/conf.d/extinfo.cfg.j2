@@ -1,0 +1,17 @@
+{{ ansible_managed | comment }}
+##
+## Extended Host and Service Information
+##
+
+{% for hostextinfo in nagios_server_hostextinfo %}
+
+define hostextinfo{
+  hostgroup_name   {{ hostextinfo.hostgroup }}
+  notes            {{ hostextinfo.notes }}
+  icon_image       {{ hostextinfo.icon_image }}
+  icon_image_alt   {{ hostextinfo.icon_image_alt }}
+  vrml_image       {{ hostextinfo.vrml_image }}
+  statusmap_image  {{ hostextinfo.statusmap_image }}
+}
+
+{% endfor %}

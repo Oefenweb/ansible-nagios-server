@@ -63,7 +63,7 @@ None
 * `nagios_server_host_templates.{n}.variables.{n}.name`: [required]: The name of variable
 * `nagios_server_host_templates.{n}.variables.{n}.value`: [required]: The value of variable
 
-* `nagios_server_hostextinfo`: [default: `[]`]: Hostextinfo declarations
+* `nagios_server_hostextinfo`: [default: `[]`]: Hostextinfo declarations (deprecated for nagios version 4 and up)
 * `nagios_server_hostextinfo.{n}.hostgroup`: [required]: Hostgroup name
 * `nagios_server_hostextinfo.{n}.notes`: [required]: Notes
 * `nagios_server_hostextinfo.{n}.icon_image`: [required]: Icon image
