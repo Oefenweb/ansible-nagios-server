@@ -23,6 +23,8 @@ None
 * `nagios_server_htpasswd_users.{n}.name`: [required]: Username
 * `nagios_server_htpasswd_users.{n}.password`: [required]: Password
 
+* `nagios_server_htdigest_realm`: [optional, default `Nagios4`]: Apache2 digest authentication realm (Nagios 4 only)
+
 * `nagios_server_cgi`: [default: `{}`]: CGI declarations
 * `nagios_server_cgi.refresh_rate`: [optional, default: `90`]: Refresh rate
 * `nagios_server_cgi.result_limit`: [optional, default: `100`]: Default page limit
