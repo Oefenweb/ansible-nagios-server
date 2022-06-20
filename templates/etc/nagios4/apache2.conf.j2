@@ -25,7 +25,7 @@ Alias /nagios4 /usr/share/nagios4/htdocs
     AuthDigestDomain "Nagios4"
     AuthDigestProvider file
     AuthUserFile "/etc/nagios4/htdigest.users"
-    AuthName "Nagios4"
+    AuthName "{{ nagios_server_htdigest_realm }}"
     AuthType Digest
     Require valid-user
 </DirectoryMatch>

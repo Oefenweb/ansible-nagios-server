@@ -1,4 +1,4 @@
-{% set realm = 'Nagios Access' -%}
+{% set realm = nagios_server_htdigest_realm -%}
 {% for item in nagios_server_htpasswd_users %}
 {{ item.name }}:{{ realm }}:{{ (item.name ~ ':' ~ realm ~ ':' ~ item.password) | hash('md5') }}
 {% endfor %}

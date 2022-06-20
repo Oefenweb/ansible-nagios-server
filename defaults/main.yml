@@ -1,6 +1,7 @@
 # defaults file
 ---
 nagios_server_htpasswd_users: []
+nagios_server_htdigest_realm: 'Nagios4'
 
 nagios_server_private_keys: []
 
