@@ -153,7 +153,7 @@ None
 ---
 - hosts: all
   roles:
-    - nagios-server
+    - oefenweb.nagios-server
 ```
 
 #### License
