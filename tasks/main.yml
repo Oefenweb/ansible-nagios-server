@@ -31,11 +31,11 @@
     - nagios-server
     - nagios-server-configure
   block:
-    - name: >
+    - name: configure 3
       ansible.builtin.import_tasks: configure-3.yml
       when: nagios_server_major_version is version('3', '=')
 
-    - name: >
+    - name: configure 4
       ansible.builtin.import_tasks: configure-4.yml
       when: nagios_server_major_version is version('4', '=')
 
