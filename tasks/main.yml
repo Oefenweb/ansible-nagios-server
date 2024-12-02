@@ -11,19 +11,25 @@
     - nagios-server
     - nagios-server-include-variables
 
-- ansible.builtin.import_tasks: install.yml
+- name: install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - configuration
     - nagios-server
     - nagios-server-install
 
-- ansible.builtin.import_tasks: private-keys.yml
+- name: private-keys
+  ansible.builtin.import_tasks: private-keys.yml
   tags:
     - configuration
     - nagios-server
     - nagios-server-private-keys
 
 - name: configure
+  tags:
+    - configuration
+    - nagios-server
+    - nagios-server-configure
   block:
     - name: >
       ansible.builtin.import_tasks: configure-3.yml
@@ -32,10 +38,6 @@
     - name: >
       ansible.builtin.import_tasks: configure-4.yml
       when: nagios_server_major_version is version('4', '=')
-  tags:
-    - configuration
-    - nagios-server
-    - nagios-server-configure
 
 - name: start and enable service
   ansible.builtin.service:
