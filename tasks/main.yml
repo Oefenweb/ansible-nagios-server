@@ -26,11 +26,11 @@
 - name: configure
   block:
     - name: >
-      ansible.builtin.include_tasks: configure-3.yml
+      ansible.builtin.import_tasks: configure-3.yml
       when: nagios_server_major_version is version('3', '=')
 
     - name: >
-      ansible.builtin.include_tasks: configure-4.yml
+      ansible.builtin.import_tasks: configure-4.yml
       when: nagios_server_major_version is version('4', '=')
   tags:
     - configuration
