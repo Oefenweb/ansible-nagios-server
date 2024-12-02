@@ -5,7 +5,7 @@
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
-    mode: 0644
+    mode: '0644'
   with_items: "{{ nagios_server_htpasswd_users }}"
   tags:
     - nagios-server-configure-apache-htpasswd-users
@@ -17,7 +17,7 @@
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_group }}"
     # Needed for www-data to read this file
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-cgi-file

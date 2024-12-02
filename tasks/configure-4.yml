@@ -6,7 +6,7 @@
     dest: /etc/nagios4/htdigest.users
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
-    mode: 0644
+    mode: '0644'
   tags:
     - nagios-server-configure-apache-htpasswd-users
 
@@ -16,7 +16,7 @@
     dest: /etc/nagios4/apache2.conf
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-apache-file
@@ -28,7 +28,7 @@
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_group }}"
     # Needed for www-data to read this file
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-cgi-file
