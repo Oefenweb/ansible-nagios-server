@@ -6,7 +6,7 @@
     dest: /etc/nagios4/htdigest.users
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
-    mode: 0644
+    mode: '0644'
   tags:
     - nagios-server-configure-apache-htpasswd-users
 
@@ -16,7 +16,7 @@
     dest: /etc/nagios4/apache2.conf
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-apache-file
@@ -28,7 +28,7 @@
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_group }}"
     # Needed for www-data to read this file
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-cgi-file
@@ -145,8 +145,10 @@
     - nagios-server-configure-copy-services-files
 
 - name: configure | check external commands
+  when: nagios_server_check_external_commands | bool
+  tags:
+    - nagios-server-configure-check-external-commands
   block:
-
     - name: configure | set command dir permissions
       ansible.builtin.file:
         path: /var/lib/nagios4/rw
@@ -164,10 +166,6 @@
         regexp: '^check_external_commands='
         line: check_external_commands=1
       notify: reload nagios-server
-
-  when: nagios_server_check_external_commands | bool
-  tags:
-    - nagios-server-configure-check-external-commands
 
 - name: configure | regular expression matching option
   ansible.builtin.lineinfile:

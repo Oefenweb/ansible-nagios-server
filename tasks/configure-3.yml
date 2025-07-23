@@ -5,7 +5,7 @@
     path: /etc/nagios3/htpasswd.users
     name: "{{ item.name }}"
     password: "{{ item.password }}"
-    mode: 0644
+    mode: '0644'
   with_items: "{{ nagios_server_htpasswd_users }}"
   tags:
     - nagios-server-configure-apache-htpasswd-users
@@ -17,7 +17,7 @@
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_group }}"
     # Needed for www-data to read this file
-    mode: 0644
+    mode: '0644'
   notify: reload nagios-server
   tags:
     - nagios-server-configure-copy-cgi-file
@@ -134,8 +134,10 @@
     - nagios-server-configure-copy-host-files
 
 - name: configure | check external commands
+  when: nagios_server_check_external_commands | bool
+  tags:
+    - nagios-server-configure-check-external-commands
   block:
-
     - name: configure | set command dir permissions
       ansible.builtin.file:
         path: /var/lib/nagios3/rw
@@ -153,10 +155,6 @@
         regexp: '^check_external_commands='
         line: check_external_commands=1
       notify: reload nagios-server
-
-  when: nagios_server_check_external_commands | bool
-  tags:
-    - nagios-server-configure-check-external-commands
 
 - name: configure | regular expression matching option
   ansible.builtin.lineinfile:

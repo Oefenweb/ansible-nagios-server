@@ -33,6 +33,8 @@ None
 * `nagios_server_user_macros.key`: [required]: Identifier of the macro (1 through 32). Nagios supports up to 32 $USERx$ macros ($USER1$ through $USER32$)
 * `nagios_server_user_macros.key.value`: [default: `{}`]: Macro value
 
+* `nagios_server_contacts_return_address`: [default: `nagios@{{ inventory_hostname }}`]: Return (from) address for outgoing mails
+
 * `nagios_server_contacts`: [default: `[]`]: Contact declarations
 * `nagios_server_contacts.{n}.name`: [required]: Contact name
 * `nagios_server_contacts.{n}.alias`: [required]: Contact alias
