@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 define host{
 	use                     {{ item.host_template | default('generic-host') }}            ; Name of host template to use

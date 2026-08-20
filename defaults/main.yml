@@ -8,7 +8,7 @@ nagios_server_private_keys: []
 nagios_server_install:
   - "nagios{{ nagios_server_major_version }}"
   # Required for the htpasswd Ansible module
-  - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-passlib"
+  - "python{{ ansible_facts['python_version'] is version('3', '>=') | ternary('3', '') }}-passlib"
 
 nagios_server_cgi: {}
 
