@@ -17,7 +17,9 @@
     owner: "{{ nagios_server_default_owner }}"
     group: "{{ nagios_server_default_owner }}"
     mode: '0644'
-  notify: reload nagios-server
+  notify:
+    - reload apache2
+    - reload nagios-server
   tags:
     - nagios-server-configure-copy-apache-file
 
